@@ -21,9 +21,14 @@ def home():
 ########### home ##########
 ########### 마이페이지 ##########
 @app.route("/mypage", methods=["GET"])
-def movie_get():
+def mypage():
     return render_template('mypage.html')
 
+@app.route("/mypage", methods=['PATCH'])
+def change_image():
+    form_receive = request.form['form_give']
+    print(form_receive)
+    return render_template('mypage.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
