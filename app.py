@@ -1,16 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
-import requests
-from bs4 import BeautifulSoup
-
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
 
 ########### 로그인 ##########
 @app.route('/login')
-def home():
+def login():
     return render_template('login.html')
 
 
@@ -25,8 +22,6 @@ def home():
 ########### 마이페이지 ##########
 @app.route("/mypage", methods=["GET"])
 def movie_get():
-    movie_list = list(db.movies.find({},{'_id':False}))
-    # return jsonify({'movies': movie_list})
     return render_template('mypage.html')
 
 
