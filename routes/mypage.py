@@ -38,8 +38,8 @@ def change_image():
 @routes.route("/temp_makeDiray", methods=["POST"])
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
-    diary_list = list(db.write.find({}, {'_id': False}))
-    count = len(diary_list) + 1
+    max_num = db.write.find_one({}, sort=[('write_num', -1)])
+    count = max_num + 1
 
     doc = {
         'write_num' : count,
@@ -69,8 +69,9 @@ def delete_diary():
 ###  좋아요
 @routes.route("/mypage/good", methods=["PATCH"])
 def good_update():
-    good_receive = request.form['good_give']
-    write_num = request.form['write_num']
+    good_receive = request.form['user_give'] # "장영주"
+    write_num = request.form['num_give']
+    good_give = request.form['good_give'] # t or f
     write = db.write.find_one({'write_num':int(write_num)})
     print(write['good'])
 

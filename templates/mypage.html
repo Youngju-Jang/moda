@@ -50,11 +50,26 @@
             // $(document).on("click", ".heart", function () {
                 console.log(">>>>>>>>", num);
                 $(e).toggleClass("active");
+                let good_give;
                 if($(e).hasClass("active")){
-                    console.log("true")
+                    good_give = true;
                 }else{
-                    console.log("false")
+                    good_give = false;
                 }
+
+                $.ajax({
+                type: "PATCH",
+                url: "/mypage/good",
+                data: {
+                    user_give: "장영주",
+                    num_give: num,
+                    good_give : good_give
+                },
+                success: function (response) {
+                    $('#profile_img').attr('src', url_give)
+                    $('#profile_url').val('')
+                }
+            })
             // });
         }
 
