@@ -38,6 +38,8 @@
             // 로딩시 db 이미지, 아이디 불러오기
             let oldUrl = $('#oldUrl').val();
             $('#profile_img').attr('src', oldUrl);
+
+            show_diary();
         });
 
         function file_click() {
@@ -50,7 +52,7 @@
             $.ajax({
                 type: "PATCH",
                 url: "/mypage",
-                data: {url_give : url_give},
+                data: {url_give: url_give},
                 success: function (response) {
                     console.log(url_give)
                     $('#profile_img').attr('src', url_give)
@@ -59,17 +61,79 @@
             })
         }
 
-        function temp_usermake(){
+        function temp_usermake() {
             $.ajax({
                 type: "POST",
                 url: "/mypage",
                 data: {
-                    id_give : $('#id').val(),
-                    pw_give : $('#pw').val(),
-                    url_give : $('#profile_url').val()},
+                    id_give: $('#id').val(),
+                    pw_give: $('#pw').val(),
+                    url_give: $('#profile_url').val()
+                },
                 success: function (response) {
                 }
             })
+        }
+
+        function show_diary() {
+            $.ajax({
+                type: "GET",
+                url: "/temp_diary",
+                data: {},
+                success: function (response) {
+                    let rows = response['diary_list']
+                    for (let i = 0; i < rows.length; i++) {
+                        let user = rows[i]['user']
+                        let text = rows[i]['text']
+                        let good = rows[i]['good']
+                        let num = rows[i]['write_num']
+
+                        let temp_html = `<li>
+                                            <h6>${text}</h6>
+                                            <h6>user : ${user}</h6>
+                                            <h6>good : ${good}</h6>
+                                            <h6>num : ${num}</h6>
+                                            <button type="button" class="btn btn-outline-primary" onclick="check_delete_diary(${num})">삭제!</button>
+                                        </li>`
+
+                        $('#diary-list').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function save_bucket(){
+            let diary = $('#diary').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/temp_makeDiray",
+                data: {diary_give: diary},
+                success: function (response) {
+                    window.location.reload()
+                }
+            });
+        }
+
+        function check_delete_diary(num){
+            if(!confirm("일기를 지우시겠습니까?")){
+                return
+            } else{
+                delete_diary(num);
+            }
+        }
+
+        function delete_diary(num){
+            $.ajax({
+                type: "DELETE",
+                url: "/mypage",
+                data: {num_give: num},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+
         }
 
     </script>
@@ -81,7 +145,7 @@
         <!--사진수정-->
         <div id="profile">
             <img id="profile_img">
-            <form id="profile_form" enctype="multipart/form-data" onsubmit="return false" >
+            <form id="profile_form" enctype="multipart/form-data" onsubmit="return false">
 
                 <input type="text" id="id" value={{ user.id }} disabled>
                 <input type="hidden" id="oldUrl" value={{ user.url }}>
@@ -93,7 +157,14 @@
         </div>
 
         <!--글리스트-->
-
+        <!--        임시 글만들기-->
+        <div class="mybox">
+            <div class="mybucket">
+                <input id="diary" class="form-control" type="text" placeholder="오늘의 일기">
+                <button onclick="save_bucket()" type="button" class="btn btn-outline-primary">기록하기</button>
+            </div>
+        </div>
+        <div class="mybox" id="diary-list"></div>
     </div>
 </main>
 </body>

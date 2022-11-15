@@ -13,7 +13,6 @@ def users():
 @routes.route("/mypage", methods=["GET"])
 def mypage():
     user = db.user.find_one({'id': '장영주'})
-    print("/mypage GET >>>>>>>>>>" , user)
     return render_template('mypage.html', user=user)
 
 @routes.route("/mypage", methods=["POST"])
@@ -36,3 +35,35 @@ def change_image():
     db.user.update_one({'id': "장영주"}, {'$set': {'url': url_receive}})
 
     return jsonify({'msg':".."});
+
+@routes.route("/temp_makeDiray", methods=["POST"])
+def temp_makeDiray():
+    diary_receive = request.form['diary_give']
+    diary_list = list(db.write.find({}, {'_id': False}))
+    count = len(diary_list) + 1
+
+    doc = {
+        'write_num' : count,
+        'user' : "장영주",
+        'text' : diary_receive,
+        'good' : 0
+    }
+    db.write.insert_one(doc)
+    return jsonify({'msg': '등록 완료!'})
+
+@routes.route("/temp_diary", methods=["GET"])
+def diary_get():
+    # 로그인 구현 후엔 user명 session에서 받아오도록 수정필요
+    user = "장영주"
+    diary_list = list(db.write.find({'user':user}, {'_id': False}))
+    return jsonify({'diary_list': diary_list})
+
+@routes.route("/mypage", methods=["DELETE"])
+def delete_diary():
+    write_num = request.form['num_give']
+    user = "장영주"
+    db.write.delete_one({'user':user, 'write_num':int(write_num)})
+    return jsonify({'msg': '삭제 완료'})
+
+
+# url get말고 post로 바꾸기
