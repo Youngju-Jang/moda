@@ -34,13 +34,23 @@
         }
     </style>
     <script>
+
         $(document).ready(function () {
             // 로딩시 db 이미지, 아이디 불러오기
             let oldUrl = $('#oldUrl').val();
             $('#profile_img').attr('src', oldUrl);
-
             show_diary();
+            heartToggle();
+
         });
+
+        const heartToggle =
+            $(document).on("click",".heart",function () {
+                console.log("click");
+                $(this).toggleClass("active");
+            });
+
+
 
         function file_click() {
             $('.real-upload').click();
@@ -54,9 +64,8 @@
                 url: "/mypage",
                 data: {url_give: url_give},
                 success: function (response) {
-                    console.log(url_give)
                     $('#profile_img').attr('src', url_give)
-                    console.log("success");
+                    $('#profile_url').val('')
                 }
             })
         }
@@ -87,12 +96,14 @@
                         let text = rows[i]['text']
                         let good = rows[i]['good']
                         let num = rows[i]['write_num']
-
                         let temp_html = `<li>
                                             <h6>${text}</h6>
                                             <h6>user : ${user}</h6>
                                             <h6>good : ${good}</h6>
                                             <h6>num : ${num}</h6>
+                                            <div class="heart">Heart
+                                                <img src='../static/img/heart.png' style="width:10px;">
+                                            </div>
                                             <button type="button" class="btn btn-outline-primary" onclick="check_delete_diary(${num})">삭제!</button>
                                         </li>`
 
@@ -102,7 +113,7 @@
             });
         }
 
-        function save_bucket(){
+        function save_bucket() {
             let diary = $('#diary').val()
 
             $.ajax({
@@ -115,15 +126,15 @@
             });
         }
 
-        function check_delete_diary(num){
-            if(!confirm("일기를 지우시겠습니까?")){
+        function check_delete_diary(num) {
+            if (!confirm("일기를 지우시겠습니까?")) {
                 return
-            } else{
+            } else {
                 delete_diary(num);
             }
         }
 
-        function delete_diary(num){
+        function delete_diary(num) {
             $.ajax({
                 type: "DELETE",
                 url: "/mypage",
@@ -133,6 +144,10 @@
                     window.location.reload()
                 }
             });
+        }
+
+        // 좋아요
+        function good_update(num) {
 
         }
 
@@ -149,9 +164,9 @@
 
                 <input type="text" id="id" value={{ user.id }} disabled>
                 <input type="hidden" id="oldUrl" value={{ user.url }}>
-                <input type="text" id="pw">
+                <!--                <input type="text" id="pw">-->
                 <input type="text" id="profile_url" name="profile_url" placeholder="새 프로필 url">
-                <button type="button" onclick="temp_usermake()">추가</button>
+                <!--                <button type="button" onclick="temp_usermake()">추가</button>-->
                 <button type="button" onclick="profile_change()">변경</button>
             </form>
         </div>
