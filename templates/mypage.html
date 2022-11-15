@@ -152,6 +152,7 @@
             padding: 5px;
             line-height: 5px;
         }
+
         .card-body > div:first-child {
             display: flex;
             justify-content: space-between;
@@ -162,13 +163,16 @@
         $(document).ready(function () {
             // 로딩시 db 이미지, 아이디 불러오기
             let oldUrl = $('#oldUrl').val();
-            $('#profile_img').attr('src', oldUrl);
+            if (oldUrl == '') {
+                $('#profile_img').attr('src', 'https://i.imgur.com/ngFHyCw.png')
+            } else {
+                $('#profile_img').attr('src', oldUrl);
+            }
             show_diary();
         });
 
         function heartToggle(e, num) {
             // $(document).on("click", ".heart", function () {
-            console.log(">>>>>>>>", num);
             $(e).toggleClass("active");
             let good_give;
             if ($(e).hasClass("active")) {
@@ -205,7 +209,11 @@
                 url: "/mypage",
                 data: {url_give: url_give},
                 success: function (response) {
-                    $('#profile_img').attr('src', url_give)
+                    if (url_give == '') {
+                        $('#profile_img').attr('src', 'https://i.imgur.com/ngFHyCw.png')
+                    } else {
+                        $('#profile_img').attr('src', url_give)
+                    }
                     $('#profile_url').val('')
                 }
             })
@@ -237,7 +245,6 @@
                         let user = rows[i]['user']
                         let text = rows[i]['text']
                         let goods = rows[i]['good']
-                        console.log(goods.length)
                         let num = rows[i]['write_num']
                         let active = ''
                         if (goods.find(e => e == user)) {
