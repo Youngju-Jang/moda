@@ -32,6 +32,10 @@
             justify-content: center;
             align-items: center;
         }
+
+        .active>img {
+            content: url('../static/img/full-heart.png');
+        }
     </style>
     <script>
 
@@ -44,12 +48,12 @@
 
         });
 
-        const heartToggle =
-            $(document).on("click",".heart",function () {
+        function heartToggle() {
+            $(document).on("click", ".heart", function () {
                 console.log("click");
                 $(this).toggleClass("active");
             });
-
+        }
 
 
         function file_click() {
@@ -94,14 +98,19 @@
                     for (let i = 0; i < rows.length; i++) {
                         let user = rows[i]['user']
                         let text = rows[i]['text']
-                        let good = rows[i]['good']
+                        let goods = rows[i]['good']
                         let num = rows[i]['write_num']
+                        let active = ''
+                        if(goods.find(e => e == user)){
+                            active = 'active'
+                            console.log(active);
+                        };
                         let temp_html = `<li>
                                             <h6>${text}</h6>
                                             <h6>user : ${user}</h6>
-                                            <h6>good : ${good}</h6>
+                                            <h6>good : ${goods}</h6>
                                             <h6>num : ${num}</h6>
-                                            <div class="heart">Heart
+                                            <div class="heart ${active}">
                                                 <img src='../static/img/heart.png' style="width:10px;">
                                             </div>
                                             <button type="button" class="btn btn-outline-primary" onclick="check_delete_diary(${num})">삭제!</button>

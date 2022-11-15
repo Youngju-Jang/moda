@@ -45,7 +45,7 @@ def temp_makeDiray():
         'write_num' : count,
         'user' : "장영주",
         'text' : diary_receive,
-        'good' : []
+        'good' : ["아무개"]
     }
     db.write.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
