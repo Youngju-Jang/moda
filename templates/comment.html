@@ -172,8 +172,8 @@
 
       .wrap > .inners .input_box {
           width: 100%;
-          height: 180px;
-          padding: 15px;
+          height: 200px;
+          
 
           display: flex;
           flex-direction: column;
@@ -262,6 +262,48 @@
 
   </style>
 
+    <script>
+        $(document).ready(function () {
+            show_bucket();
+        });
+
+        function show_bucket() {
+            $.ajax({
+                type: "GET",
+                url: "/bucket",
+                data: {},
+                success: function (response) {
+                    alert(response["msg"])
+                }
+            });
+        }
+
+        function save_comment() {
+            let user = $('#user').val()
+            let comment = $('#commnet').val()
+            $.ajax({
+                type: "POST",
+                url: "/comment",
+                data: { comment_give: comment, user_give: user },
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function done_bucket(num) {
+            $.ajax({
+                type: "POST",
+                url: "/bucket/done",
+                data: {sameple_give: '데이터전송'},
+                success: function (response) {
+                    alert(response["msg"])
+                }
+            });
+        }
+    </script>
+
 
 <body>
     <header>
@@ -301,11 +343,11 @@
             <div class="input_box">
                 <div class="input_name">
                     <div><p>작성자</p></div>
-                    <input type="text" placeholder="작성자 입력 해주세요" />
+                    <input id="user" type="text" placeholder="작성자 입력 해주세요" />
                 </div>
                 <div class="input_comment">
                     <div><p>댓글</p></div>
-                    <input type="text" placeholder="코멘트를 입력 해주세요" />
+                    <input id="comment" type="text" placeholder="코멘트를 입력 해주세요" />
                 </div>
                 <button class="btn btn--brown">Sumit</button>
             </div>
