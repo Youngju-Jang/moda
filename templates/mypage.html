@@ -178,6 +178,28 @@
         .card-body > span:last-child > img {
             margin-right: 5px;
         }
+
+        .goods-wrap{
+            height: 60%;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 20%;
+            right: 20px;
+            background-color: antiquewhite;
+            opacity: 1;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .goodBox > img {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
     </style>
     <script>
 
@@ -369,6 +391,13 @@
         <!--            </div>-->
         <!--        </div>-->
         <div class="mybox" id="diary-list"></div>
+    </div>
+    <div class="goods-wrap">
+        <!--   좋아요 리스트   -->
+        <div class="goodBox">
+            <img src='https://i.imgur.com/ngFHyCw.png'>
+            <span>개똥이</span>
+        </div>
     </div>
 </main>
 </body>
