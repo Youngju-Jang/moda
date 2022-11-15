@@ -36,7 +36,8 @@
     <script>
         $(document).ready(function () {
             // 로딩시 db 이미지, 아이디 불러오기
-            $('#profile_img').attr('src', 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FAgCpZ%2FbtrQdAqzGVq%2F9rJvUiogZKw3gevD9GOc8K%2Fimg.jpg');
+            let oldUrl = $('#oldUrl').val();
+            $('#profile_img').attr('src', oldUrl);
         });
 
         function file_click() {
@@ -45,17 +46,28 @@
         }
 
         function profile_change() {
-            let formData = new FormData($('#profile_form')[0]);
-            formData.append("profile_file", $("input[name=profile_file]")[0].files[0]);
-            console.log(formData);
+            let url_give = $('#profile_url').val()
             $.ajax({
                 type: "PATCH",
                 url: "/mypage",
-                data: {'form_give': formData},
-                contentType: false,
-                processData: false,
+                data: {url_give : url_give},
                 success: function (response) {
-                    console.log("change end");
+                    console.log(url_give)
+                    $('#profile_img').attr('src', url_give)
+                    console.log("success");
+                }
+            })
+        }
+
+        function temp_usermake(){
+            $.ajax({
+                type: "POST",
+                url: "/mypage",
+                data: {
+                    id_give : $('#id').val(),
+                    pw_give : $('#pw').val(),
+                    url_give : $('#profile_url').val()},
+                success: function (response) {
                 }
             })
         }
@@ -68,13 +80,18 @@
     <div class="wrap">
         <!--사진수정-->
         <div id="profile">
-            <form id="profile_form" enctype="multipart/form-data">
-                <input type="file" class="real-upload" id="profile_file" name="profile_file" accept="image/*" required
-                       multiple style="display: none;"
-                       onchange="profile_change()">
-                <img id="profile_img" onclick="file_click()">
+            <img id="profile_img">
+            <form id="profile_form" enctype="multipart/form-data" onsubmit="return false" >
+
+                <input type="text" id="id" value={{ user.id }} disabled>
+                <input type="hidden" id="oldUrl" value={{ user.url }}>
+                <input type="text" id="pw">
+                <input type="text" id="profile_url" name="profile_url" placeholder="새 프로필 url">
+                <button type="button" onclick="temp_usermake()">추가</button>
+                <button type="button" onclick="profile_change()">변경</button>
             </form>
         </div>
+
         <!--글리스트-->
 
     </div>
