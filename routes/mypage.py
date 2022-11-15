@@ -27,6 +27,24 @@ def temp_usermake():
     db.user.insert_one(doc)
     return render_template('mypage.html')
 
+###  임시_코멘트생성
+@routes.route("/temp_comment", methods=["POST"])
+def temp_commentMake():
+    comment_receive = request.form['comment_give']
+    max_num = db.comment.find_one({}, sort=[('comment_num', -1)])['comment_num']
+    print(">>>>>>>>>temp_commentMake>>>>>>>>", max_num)
+    if type(max_num) != int :
+        max_num = 0
+    count = max_num + 1
+
+    doc = {'write_num': 7,
+           'comment_num': count,
+           'comment' : comment_receive,
+           'user' : '장영주'
+           }
+
+    db.comment.insert_one(doc)
+    return jsonify({'msg': ".."});
 
 ###  이미지변경
 @routes.route("/mypage", methods=["PATCH"])
@@ -43,7 +61,8 @@ def change_image():
 @routes.route("/temp_makeDiray", methods=["POST"])
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
-    max_num = db.write.find_one({}, sort=[('write_num', -1)])
+    max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
+
     count = max_num + 1
 
     doc = {
