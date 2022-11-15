@@ -61,13 +61,12 @@
                 type: "PATCH",
                 url: "/mypage/good",
                 data: {
-                    user_give: "장영주",
+                    user_give: "장영주", // 세션아이디로 수정필요
                     num_give: num,
                     good_give : good_give
                 },
                 success: function (response) {
-                    $('#profile_img').attr('src', url_give)
-                    $('#profile_url').val('')
+                    show_diary()
                 }
             })
             // });
@@ -107,6 +106,7 @@
         }
 
         function show_diary() {
+            $('#diary-list').empty()
             $.ajax({
                 type: "GET",
                 url: "/temp_diary",
