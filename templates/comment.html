@@ -165,7 +165,6 @@
           width: 100%;
           margin: 50px 0 70px 0;
 
-
           display: flex;
           justify-content: center;
           overflow: hidden;
@@ -173,17 +172,29 @@
 
       .wrap > .inners .input_box {
           width: 100%;
-          height: 120px;
+          height: 180px;
+          padding: 15px;
 
           display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-content: space-around;
           justify-content: center;
-          align-items: center;
+          align-items: flex-start;
           border-bottom: 1px solid #333;
 
       }
 
+      .wrap > .inners .input_box .input_name {
+          margin-bottom: 10px;
+      }
+
+      .wrap > .inners .input_box .input_name {
+
+      }
+
       .wrap > .inners .input_box div p {
-          font-size: 20px;
+          font-size: 18px;
           margin-right: 10px;
       }
 
@@ -288,8 +299,14 @@
                 </div>
             </div>
             <div class="input_box">
-                <div><p>comment : </p></div>
-                <input type="text" />
+                <div class="input_name">
+                    <div><p>작성자</p></div>
+                    <input type="text" placeholder="작성자 입력 해주세요" />
+                </div>
+                <div class="input_comment">
+                    <div><p>댓글</p></div>
+                    <input type="text" placeholder="코멘트를 입력 해주세요" />
+                </div>
                 <button class="btn btn--brown">Sumit</button>
             </div>
             <div class="comment_wrap">
