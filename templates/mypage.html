@@ -44,15 +44,18 @@
             let oldUrl = $('#oldUrl').val();
             $('#profile_img').attr('src', oldUrl);
             show_diary();
-            heartToggle();
-
         });
 
-        function heartToggle() {
-            $(document).on("click", ".heart", function () {
-                console.log("click");
-                $(this).toggleClass("active");
-            });
+        function heartToggle(e, num) {
+            // $(document).on("click", ".heart", function () {
+                console.log(">>>>>>>>", num);
+                $(e).toggleClass("active");
+                if($(e).hasClass("active")){
+                    console.log("true")
+                }else{
+                    console.log("false")
+                }
+            // });
         }
 
 
@@ -103,14 +106,13 @@
                         let active = ''
                         if(goods.find(e => e == user)){
                             active = 'active'
-                            console.log(active);
                         };
                         let temp_html = `<li>
                                             <h6>${text}</h6>
                                             <h6>user : ${user}</h6>
                                             <h6>good : ${goods}</h6>
                                             <h6>num : ${num}</h6>
-                                            <div class="heart ${active}">
+                                            <div class="heart ${active}" onclick="heartToggle(this, ${num})">
                                                 <img src='../static/img/heart.png' style="width:10px;">
                                             </div>
                                             <button type="button" class="btn btn-outline-primary" onclick="check_delete_diary(${num})">삭제!</button>
