@@ -153,9 +153,21 @@
             line-height: 5px;
         }
 
+        textarea {
+            font-size: 20px;
+
+        }
+
         .card-body > div:first-child {
             display: flex;
             justify-content: space-between;
+        }
+        .card-body > span:last-child {
+            display: flex;
+            justify-content: flex-start;
+        }
+        .card-body > span:last-child > img {
+            margin-right: 5px;
         }
     </style>
     <script>
@@ -258,7 +270,8 @@
                                             </div>
                                             <textarea>${text}</textarea>
                                             <span class="heart ${active}" onclick="heartToggle(this, ${num})">
-                                                <img src='../static/img/heart.png' style="width:15px;"> <span class="card-body_span">${goods.length}</span>
+                                                <img src='../static/img/heart.png' style="width:15px;">
+                                                <span class="card-body_span">${goods.length}</span>
                                             </span>
                                         </div>`
 
@@ -315,7 +328,7 @@
         <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
         <a href="#home">H o m e</a>
         <a href="#list">L i s t</a>
-        <a href="#mypage">M y p a g e</a>
+        <a href="/mypage">M y p a g e</a>
     </nav>
     <div class="main">
         <!--사진수정-->
