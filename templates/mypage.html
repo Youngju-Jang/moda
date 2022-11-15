@@ -22,6 +22,11 @@
             font-weight: bold;
         }
 
+        main{
+            display: flex;
+            flex-direction: row;
+        }
+
         .sidenav {
             height: 100%;
             width: 300px;
@@ -88,7 +93,7 @@
             align-items: center;
         }
 
-        .active > img {
+        .active {
             content: url('../static/img/full-heart.png');
         }
 
@@ -141,6 +146,10 @@
 
         .card-body > span {
             grid-row-start: 3;
+        }
+
+        .card-body > span> img:hover {
+            cursor: pointer;
         }
 
         .card-body_span {
@@ -268,9 +277,9 @@
                                                 <span class="card-body_span">${user}</span>
                                                 <button type="button" class="btn btn-secondary btn-sm" onclick="check_delete_diary(${num})">X</button>
                                             </div>
-                                            <textarea>${text}</textarea>
-                                            <span class="heart ${active}" onclick="heartToggle(this, ${num})">
-                                                <img src='../static/img/heart.png' style="width:15px;">
+                                            <textarea disabled>${text}</textarea>
+                                            <span>
+                                                <img class="heart ${active}" onclick="heartToggle(this, ${num})" src='../static/img/heart.png' style="width:15px;">
                                                 <span class="card-body_span">${goods.length}</span>
                                             </span>
                                         </div>`
