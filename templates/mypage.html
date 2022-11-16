@@ -22,7 +22,7 @@
             font-weight: bold;
         }
 
-        main{
+        main {
             display: flex;
             flex-direction: row;
         }
@@ -122,7 +122,7 @@
             margin-bottom: 10px;
             width: 280px;
             display: grid;
-            grid-template-rows: 30px 150px 30px;
+            grid-template-rows: 30px 150px 30px auto;
             background: white;
             gap: 5px;
             padding: 10px;
@@ -144,11 +144,35 @@
             display: none;
         }
 
-        .card-body > span {
+        .card-body > span:first-child {
             grid-row-start: 3;
         }
 
-        .card-body > span> img:hover {
+        .card-body > div:last-child {
+            grid-row-start: 4;
+        }
+
+        .comment_active {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: stretch;
+            align-items: flex-start;
+        }
+
+        .comment_box {
+            width: 100%;
+            border-bottom: 1px solid rgba(0, 0, 0, .5);
+        }
+
+        .comment_box > div:first-child {
+            font-size: 10px;
+        }
+
+        .comment_box > div:last-child {
+            font-size: 15px;
+        }
+
+        .card-body > span > img:hover {
             cursor: pointer;
         }
 
@@ -173,15 +197,17 @@
             display: flex;
             justify-content: space-between;
         }
-        .card-body > span:last-child {
+
+        .card-body > span:first-child {
             display: flex;
             justify-content: flex-start;
         }
-        .card-body > span:last-child > img {
+
+        .card-body > span:first-child > img {
             margin-right: 5px;
         }
 
-        .goods-wrap{
+        .goods-wrap {
             height: 60%;
             width: 300px;
             position: fixed;
@@ -241,6 +267,11 @@
             // });
         }
 
+        function commentToggle(e, num) {
+            $(".commentWrap").toggleClass("comment_active");
+
+        }
+
         function profile_change() {
             let url_give = $('#profile_url').val()
             $.ajax({
@@ -298,14 +329,22 @@
                         let goods = rows[i]['good']
                         let num = rows[i]['write_num']
                         let commentInfo = rows[i]['commentInfo']
-                        if(commentInfo.length == 0){
-                            console.log(num , " : comment zero")
-                        }
+                        console.log(typeof (Object.entries(commentInfo)))
                         let active = ''
+                        let comment_user
+                        let comment
+                        let temp_comment_html
                         if (goods.find(e => e == user)) {
                             active = 'active'
                         }
-                        ;
+                        let bubbleSrc
+                        if (commentInfo.length != 0) {
+                            bubbleSrc = "../static/img/full-bubble.png"
+                        } else {
+                            bubbleSrc = "../static/img/bubble.png"
+                        }
+
+
                         let temp_html = `<div class="card-body">
                                             <div>
                                                 <span class="card-body_span">${user}</span>
@@ -315,12 +354,26 @@
                                             <span>
                                                 <img class="heart ${active}" onclick="heartToggle(this, ${num})" src='../static/img/heart.png' style="width:15px;">
                                                 <span class="card-body_span">${goods.length}</span>
-                                                <img class="heart" src='../static/img/bubble.png' style="width:15px;">
-                                                <span class="card-body_span">${goods.length}</span>
+                                                <img class="heart" onclick="commentToggle(this, ${num})" src=${bubbleSrc} style="width:15px;">
+                                                <span class="card-body_span">${commentInfo.length}</span>
                                             </span>
+                                            <div class="commentWrap" style="display: none"></div>
                                         </div>`
 
                         $('#diary-list').append(temp_html)
+
+                        if (commentInfo.length != 0) {
+                            for (let i = 0; i < commentInfo.length; i++) {
+                                comment_user = commentInfo[i]['user']
+                                comment = commentInfo[i]['comment']
+                                temp_comment_html = `<div class="comment_box">
+                                                        <div>${comment_user}</div>
+                                                        <div>${comment}</div>
+                                                    </div>
+                                        `
+                                $('.commentWrap').append(temp_comment_html)
+                            }
+                        }
                     }
                 }
             });
@@ -396,14 +449,21 @@
                 </div>
             </form>
         </div>
+        <!--    임시 유저 생성칸-->
+        <div class="mybox">
+            <div class="mybucket">
+                <input id="diary" class="form-control" type="text" placeholder="오늘의 일기">
+                <button onclick="save_bucket()" type="button" class="btn btn-outline-primary">일기쓰기</button>
+            </div>
+        </div>
 
-    <!--    임시 코멘트 생성칸-->
-                <div class="mybox">
-                    <div class="mybucket">
-                        <input id="comment" class="form-control" type="text" placeholder="오늘의 일기">
-                        <button onclick="save_comment()" type="button" class="btn btn-outline-primary">댓글달기</button>
-                    </div>
-                </div>
+        <!--    임시 코멘트 생성칸-->
+        <div class="mybox">
+            <div class="mybucket">
+                <input id="comment" class="form-control" type="text" placeholder="오늘의 일기">
+                <button onclick="save_comment()" type="button" class="btn btn-outline-primary">댓글달기</button>
+            </div>
+        </div>
         <div class="mybox" id="diary-list"></div>
     </div>
     <div class="goods-wrap">
