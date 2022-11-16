@@ -5,8 +5,12 @@ from . import routes
 from pymongo import MongoClient
 import pprint
 from bson.son import SON
+import certifi
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority')
+ca = certifi.where()
+
+client = MongoClient(
+    'mongodb+srv://Minj:alswoqjffp45@cluster0.7597pmh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.dbsparta
 
 
@@ -29,27 +33,32 @@ def temp_usermake():
     db.user.insert_one(doc)
     return render_template('mypage.html')
 
+
 ###  임시_코멘트생성
 @routes.route("/temp_comment", methods=["POST"])
 def temp_commentMake():
     comment_receive = request.form['comment_give']
-    max_num = db.comment.find_one({}, sort=[('comment_num', -1)])['comment_num']
-    print(">>>>>>>>>temp_commentMake>>>>>>>>", max_num)
-    if type(max_num) != int :
+    temp = db.comment.find_one({}, sort=[('comment_num', -1)])
+    if type(temp) != int:
         max_num = 0
     count = max_num + 1
+    # max_num = 0
 
-    doc = {'write_num': 7,
-           'comment_num': count,
-           'comment' : comment_receive,
-           'user' : '장영주'
-           }
-
+    # if type(temp) is not int:
+    #     pass
+    # else:
+    #     max_num = temp['comment_num']
+    # count = max_num + 1
+    doc = {
+            'write_num': 4,
+            'text': comment_receive,
+            'user': '테스투'
+        }
     db.comment.insert_one(doc)
     return jsonify({'msg': ".."});
 
-###  이미지변경
-@routes.route("/mypage", methods=["PATCH"])
+ ###  이미지변경
+@ routes.route("/mypage", methods=["PATCH"])
 def change_image():
     url_receive = request.form['url_give']
 
@@ -63,19 +72,23 @@ def change_image():
 @routes.route("/temp_makeDiray", methods=["POST"])
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
-    max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
+    max_num = 0
+    temp = db.write.find_one({}, sort=[('write_num', -1)])
+    if type(temp) is not int:
+        pass
+    else:
+        max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
 
     count = max_num + 1
 
     doc = {
         'write_num': count,
-        'user': "장영주",
+        'user': "테스트",
         'text': diary_receive,
         'good': ["아무개"]
     }
     db.write.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
-
 
 
 ###  글가져오기
@@ -87,20 +100,20 @@ def diary_get():
     pipeline = [
         {
             "$lookup": {
-            "from" : "comment",
-            "localField" : "write_num",
-            "foreignField" : "write_num",
-            "as" : "commentInfo"
+                "from": "comment",
+                "localField": "write_num",
+                "foreignField": "write_num",
+                "as": "commentInfo"
             },
         },
         {
-            "$project":{
-                "_id":0,
-                "user":1,
-                "text":1,
-                "good":1,
-                "write_num":1,
-                "commentInfo":1,
+            "$project": {
+                "_id": 0,
+                "user": 1,
+                "text": 1,
+                "good": 1,
+                "write_num": 1,
+                "commentInfo": 1,
             }
         }
     ]
@@ -127,11 +140,10 @@ def good_update():
     good_receive = request.form['user_give']  # "장영주"
     write_num = request.form['num_give']
     good_give = request.form['good_give']  # t or f
-    if good_give == 'true' :
+    if good_give == 'true':
         db.write.update_one({'write_num': int(write_num)}, {"$push": {'good': good_receive}})
-    else :
-        db.write.update_one({'write_num':int(write_num)},{"$pull": {'good': good_receive}})
-
+    else:
+        db.write.update_one({'write_num': int(write_num)}, {"$pull": {'good': good_receive}})
 
     # 로그인기능 생성 후 id 수정필요
     # db.user.update_one({'id': "장영주"}, {'$set': {'url': }})

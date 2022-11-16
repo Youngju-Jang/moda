@@ -140,18 +140,19 @@
           margin: 20px auto 0 auto;
       }
 
-      .wrap .post_box {
-          width: 100%;
-          border-bottom: 1px solid #333;
-      }
-
-      .wrap .post_box .material-icons {
+      .wrap .material-icons {
           margin: 0 0 20px 20px;
           color: #333;
           cursor: pointer;
       }
-      .wrap .post_box .material-icons:hover {
+
+      .wrap .material-icons:hover {
           color: darkgray;
+      }
+
+      .wrap .post_box {
+          width: 100%;
+          border-bottom: 1px solid #333;
       }
 
       .wrap .post_box .nickname {
@@ -287,7 +288,7 @@
 
                     for (let i = 0; i < rows.length; ++i) {
                         let user = rows[i]['user']
-                        let num = rows[i]['num']
+                        let num = rows[i]['comment_num']
                         let comment = rows[i]['comment']
 
                         let temp_html = `<ul class="comment_box">
@@ -300,7 +301,39 @@
                                             </li>
                                         </ul>`
                         $('#cm_wrap').append(temp_html)
+
                     }
+                }
+            });
+        }
+        $(document).ready(function () {
+            show_diary();
+        });
+        function show_diary() {
+            $.ajax({
+                type: "GET",
+                url: "/comment/comment2",
+                data: {},
+                success: function (response) {
+                    let rows = response['comment_test'];
+
+                        for (let i = 0; i < rows.length; ++i) {
+                                // let num = rows[i]['write_num']
+
+                                let user = rows[i]['user']
+                                let comment = rows[i]['comment']
+
+                                let temp_html = `<div class="nickname">
+                                            <div>- ${user} -</div>
+                                        </div>
+                                        <div class="text_box">
+                                            <p>${comment}</p>
+                                        </div>`
+                                $('#diary').append(temp_html)
+
+
+                        }
+
                 }
             });
         }
@@ -335,6 +368,7 @@
 
             }
         }
+
     </script>
 
 
@@ -361,16 +395,13 @@
 
     <div class="wrap">
         <div class="inners">
-            <div class="post_box">
-                <div class="material-icons">arrow_back</div>
+            <a href="/mypage" class="material-icons">arrow_back</a>
+            <div id="diary" class="post_box">
                 <div class="nickname">
                     <div>- MinJae -</div>
                 </div>
                 <div class="text_box">
                     <p>안녕하세요~!반갑습니다 ~! 아아앙아우우우웅이이이이아아아 <br/>줄바꿈</p>
-                </div>
-                <div class="img_box">
-                    <img src="../static/img/test-img.png" alt="" />
                 </div>
             </div>
             <div class="input_box">
@@ -391,7 +422,7 @@
     </div>
 
     <div id="to-top">
-      <a href="javascript:void(0)" class="material-icons">arrow_upward</a>
+      <a class="material-icons">arrow_upward</a>
     </div>
 
     <script>
