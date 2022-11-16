@@ -280,7 +280,7 @@
         function show_comment() {
             $.ajax({
                 type: "GET",
-                url: "/comment",
+                url: "/comment/comment1",
                 data: {},
                 success: function (response) {
                     let rows = response['comment'];
@@ -310,7 +310,7 @@
             let comment = $('#comment').val()
             $.ajax({
                 type: "POST",
-                url: "/comment",
+                url: "/comment/comment1",
                 data: { comment_give: comment, user_give: user },
                 success: function (response) {
                     alert(response["msg"])
@@ -320,7 +320,9 @@
         }
 
         function cancel_comment(num) {
-            $.ajax({
+            let cancel = confirm("댓글을 삭제 하시겠습니까?")
+            if (cancel) {
+                $.ajax({
                 type: "POST",
                 url: "/comment/done",
                 data: {num_give: num},
@@ -329,6 +331,9 @@
                     window.location.reload()
                 }
             });
+            } else {
+
+            }
         }
     </script>
 

@@ -10,11 +10,11 @@ ca = certifi.where()
 client = MongoClient('mongodb+srv://Minj:alswoqjffp45@cluster0.7597pmh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.dbsparta
 
-@routes.route('/')
+@routes.route('/comment')
 def comment():
     return render_template('comment.html')
 
-@routes.route("/comment", methods=["POST"])
+@routes.route("/comment/comment1", methods=["POST"])
 def comment_post():
     comment_receive = request.form['comment_give']
     user_receive = request.form['user_give']
@@ -40,7 +40,7 @@ def comment_done():
 
     return jsonify({'msg': '댓글 삭제 완료 !!'})
 
-@routes.route("/comment", methods=["GET"])
+@routes.route("/comment/comment1", methods=["GET"])
 def comment_get():
     comment_list = list(db.comment.find({}, {'_id': False}))
 
