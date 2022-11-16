@@ -315,7 +315,7 @@
                 url: "/comment/comment2",
                 data: {},
                 success: function (response) {
-                    let rows = response['comment_test'];
+                    let rows = response['text'];
 
                         for (let i = 0; i < rows.length; ++i) {
                                 // let num = rows[i]['write_num']
@@ -337,6 +337,9 @@
                 }
             });
         }
+
+
+
 
         function save_comment() {
             let user = $('#user').val()
@@ -395,14 +398,12 @@
 
     <div class="wrap">
         <div class="inners">
+            <button type="button" onclick="location.href='/comment?num_give=3'">forMJ3</button>
+            <button type="button" onclick="location.href='/comment?num_give=7'">forMJ7</button>
+
             <a href="/mypage" class="material-icons">arrow_back</a>
             <div id="diary" class="post_box">
-                <div class="nickname">
-                    <div>- MinJae -</div>
-                </div>
-                <div class="text_box">
-                    <p>안녕하세요~!반갑습니다 ~! 아아앙아우우우웅이이이이아아아 <br/>줄바꿈</p>
-                </div>
+
             </div>
             <div class="input_box">
                 <div class="input_name">
@@ -420,6 +421,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="to-top">
       <a class="material-icons">arrow_upward</a>
