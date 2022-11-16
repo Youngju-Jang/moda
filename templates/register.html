@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <title>Hello, world!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        function register() {
+            $.ajax({
+                type: "POST",
+                url: "/api/register",
+                data: {
+                    id_give: $('#userid').val(),
+                    pw_give: $('#userpw').val(),
+                    nickname_give: $('#usernick').val()
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('회원가입이 완료되었습니다.')
+                        window.location.href = '/login'
+                    } else {
+                        alert(response['실패'])
+                    }
+                }
+            })
+        }
+
+        $(function () {
+            $("#alert-success").hide();
+            $("#alert-danger").hide();
+            $("input").keyup(function () {
+                var userpw = $("#userpw").val();
+                var chkpw = $("#chkpw").val();
+                if (userpw != "" || chkpw != "") {
+                    if (userpw == chkpw) {
+                        $("#alert-success").show();
+                        $("#alert-danger").hide();
+                        $("#submit").removeAttr("disabled");
+                    } else {
+                        $("#alert-success").hide();
+                        $("#alert-danger").show();
+                        $("#submit").Attr("disabled", "disabled");
+                    }
+                }
+            });
+        });
+
+    </script>
+    <style>
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="section has-text-centered">
+        <h1 class="title" style="color: white">sign in</h1>
+        <div class="container" style="width:60%">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="userid">ID</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="userid" name="id" aria-describedby="emailHelp"
+                                   placeholder="사용하실 ID를 입력해주세요" maxlength="12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="userpw">PW</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="form-control" id="userpw" name="pw1"
+                                   placeholder="사용하실 PW를 입력해주세요" required/>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="userpw">PW check</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="form-control" id="chkpw" name="pw2"
+                                   placeholder="사용하실 PW를 확인해주세요" required/>
+                            <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다</div>
+                            <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="usernick">NICKNAME</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="usernick" placeholder="사용하실 닉네임을 입력해주세요">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button is-primary" onclick="register()">회원가입</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
