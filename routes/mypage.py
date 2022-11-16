@@ -37,7 +37,7 @@ def temp_commentMake():
     temp = db.comment.find_one({}, sort=[('comment_num', -1)])
     max_num = 0
 
-    if type(temp) is not int:
+    if temp is None:
         pass
     else:
         max_num = temp['comment_num']
@@ -61,7 +61,6 @@ def change_image():
 
     # 로그인기능 생성 후 id 수정필요
     db.user.update_one({'id': "장영주"}, {'$set': {'url': url_receive}})
-
     return jsonify({'msg': ".."});
 
 
@@ -71,7 +70,7 @@ def temp_makeDiray():
     diary_receive = request.form['diary_give']
     max_num = 0
     temp = db.write.find_one({}, sort=[('write_num', -1)])
-    if type(temp) is not int:
+    if temp is None:
         pass
     else:
         max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
@@ -93,7 +92,8 @@ def temp_makeDiray():
 def diary_get():
     # 로그인 구현 후엔 user명 session에서 받아오도록 수정필요
     user = "장영주"
-    diary_list = list(db.write.find({'user': user}, {'_id': False}))
+    diary_comment_list = list(db.write.find({'user': user}, {'_id': False}))
+
     pipeline = [
         {
             "$lookup": {

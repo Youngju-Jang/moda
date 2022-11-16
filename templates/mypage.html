@@ -323,7 +323,7 @@
                 data: {},
                 success: function (response) {
                     let rows = response['diary_comment_list']
-                    for (let i = 0; i < rows.length; i++) {
+                    for (let i = rows.length-1 ; i >= 0; i--) {
                         let user = rows[i]['user']
                         let text = rows[i]['text']
                         let goods = rows[i]['good']
