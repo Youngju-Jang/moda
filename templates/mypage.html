@@ -154,7 +154,9 @@
 
         .card-body_span {
             font-size: 10px;
+            margin-right: 5px;
         }
+
 
         .card-body button {
             font-size: 6px;
@@ -289,12 +291,16 @@
                 url: "/temp_diary",
                 data: {},
                 success: function (response) {
-                    let rows = response['diary_list']
+                    let rows = response['diary_comment_list']
                     for (let i = 0; i < rows.length; i++) {
                         let user = rows[i]['user']
                         let text = rows[i]['text']
                         let goods = rows[i]['good']
                         let num = rows[i]['write_num']
+                        let commentInfo = rows[i]['commentInfo']
+                        if(commentInfo.length == 0){
+                            console.log(num , " : comment zero")
+                        }
                         let active = ''
                         if (goods.find(e => e == user)) {
                             active = 'active'
@@ -308,6 +314,8 @@
                                             <textarea disabled>${text}</textarea>
                                             <span>
                                                 <img class="heart ${active}" onclick="heartToggle(this, ${num})" src='../static/img/heart.png' style="width:15px;">
+                                                <span class="card-body_span">${goods.length}</span>
+                                                <img class="heart" src='../static/img/bubble.png' style="width:15px;">
                                                 <span class="card-body_span">${goods.length}</span>
                                             </span>
                                         </div>`

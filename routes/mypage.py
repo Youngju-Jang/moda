@@ -3,6 +3,8 @@ import json
 from flask import Blueprint, Flask, render_template, request, jsonify
 from . import routes
 from pymongo import MongoClient
+import pprint
+from bson.son import SON
 
 client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -75,13 +77,35 @@ def temp_makeDiray():
     return jsonify({'msg': '등록 완료!'})
 
 
+
 ###  글가져오기
 @routes.route("/temp_diary", methods=["GET"])
 def diary_get():
     # 로그인 구현 후엔 user명 session에서 받아오도록 수정필요
     user = "장영주"
     diary_list = list(db.write.find({'user': user}, {'_id': False}))
-    return jsonify({'diary_list': diary_list})
+    pipeline = [
+        {
+            "$lookup": {
+            "from" : "comment",
+            "localField" : "write_num",
+            "foreignField" : "write_num",
+            "as" : "commentInfo"
+            },
+        },
+        {
+            "$project":{
+                "user":1,
+                "text":1,
+                "good":1,
+                "write_num":1,
+                "commentInfo":1,
+            }
+        }
+    ]
+    diary_comment_list = list(db.write.aggregate(pipeline))
+    print(diary_comment_list)
+    return jsonify({'diary_comment_list': diary_comment_list})
 
 
 ###  글삭제
