@@ -95,6 +95,7 @@ def diary_get():
         },
         {
             "$project":{
+                "_id":0,
                 "user":1,
                 "text":1,
                 "good":1,
@@ -104,7 +105,10 @@ def diary_get():
         }
     ]
     diary_comment_list = list(db.write.aggregate(pipeline))
-    print(diary_comment_list)
+    for diary_comment in diary_comment_list:
+        for comment in diary_comment['commentInfo']:
+            if comment.get("_id"):
+                comment.pop("_id")
     return jsonify({'diary_comment_list': diary_comment_list})
 
 
@@ -123,14 +127,10 @@ def good_update():
     good_receive = request.form['user_give']  # "장영주"
     write_num = request.form['num_give']
     good_give = request.form['good_give']  # t or f
-    print(">>>>>" , good_give)
     if good_give == 'true' :
-        print(">>>>>11" , good_give)
         db.write.update_one({'write_num': int(write_num)}, {"$push": {'good': good_receive}})
     else :
-        print(">>>>>22" , good_give)
         db.write.update_one({'write_num':int(write_num)},{"$pull": {'good': good_receive}})
-        print("=============")
 
 
     # 로그인기능 생성 후 id 수정필요
