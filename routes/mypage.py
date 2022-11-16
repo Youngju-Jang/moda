@@ -3,6 +3,8 @@ import json
 from flask import Blueprint, Flask, render_template, request, jsonify
 from . import routes
 from pymongo import MongoClient
+import pprint
+from bson.son import SON
 
 client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -27,6 +29,24 @@ def temp_usermake():
     db.user.insert_one(doc)
     return render_template('mypage.html')
 
+###  임시_코멘트생성
+@routes.route("/temp_comment", methods=["POST"])
+def temp_commentMake():
+    comment_receive = request.form['comment_give']
+    max_num = db.comment.find_one({}, sort=[('comment_num', -1)])['comment_num']
+    print(">>>>>>>>>temp_commentMake>>>>>>>>", max_num)
+    if type(max_num) != int :
+        max_num = 0
+    count = max_num + 1
+
+    doc = {'write_num': 7,
+           'comment_num': count,
+           'comment' : comment_receive,
+           'user' : '장영주'
+           }
+
+    db.comment.insert_one(doc)
+    return jsonify({'msg': ".."});
 
 ###  이미지변경
 @routes.route("/mypage", methods=["PATCH"])
@@ -43,7 +63,8 @@ def change_image():
 @routes.route("/temp_makeDiray", methods=["POST"])
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
-    max_num = db.write.find_one({}, sort=[('write_num', -1)])
+    max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
+
     count = max_num + 1
 
     doc = {
@@ -56,13 +77,35 @@ def temp_makeDiray():
     return jsonify({'msg': '등록 완료!'})
 
 
+
 ###  글가져오기
 @routes.route("/temp_diary", methods=["GET"])
 def diary_get():
     # 로그인 구현 후엔 user명 session에서 받아오도록 수정필요
     user = "장영주"
     diary_list = list(db.write.find({'user': user}, {'_id': False}))
-    return jsonify({'diary_list': diary_list})
+    pipeline = [
+        {
+            "$lookup": {
+            "from" : "comment",
+            "localField" : "write_num",
+            "foreignField" : "write_num",
+            "as" : "commentInfo"
+            },
+        },
+        {
+            "$project":{
+                "user":1,
+                "text":1,
+                "good":1,
+                "write_num":1,
+                "commentInfo":1,
+            }
+        }
+    ]
+    diary_comment_list = list(db.write.aggregate(pipeline))
+    print(diary_comment_list)
+    return jsonify({'diary_comment_list': diary_comment_list})
 
 
 ###  글삭제
