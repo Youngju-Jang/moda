@@ -1,19 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <meta charset="utf-8">
+
+
+    <title>Hello, world!</title>
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <title>Document</title>
 
-<script>
+    <script>
         {% if msg %}
             alert("{{ msg }}")
         {% endif %}
@@ -21,7 +23,10 @@
             $.ajax({
                 type: "POST",
                 url: "/api/login",
-                data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
+                data: {
+                    id_give: $('#userid').val(),
+                    pw_give: $('#userpw').val()
+                },
                 success: function (response) {
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token']);
@@ -135,10 +140,10 @@
     </div>
     <div>
         <div class="field is-horizontal">
-            <input type="text" class="idbtn" id="userid" placeholder="My ID">
+            <input type="text" class="idbtn" id="userid" required placeholder="My ID">
         </div>
         <div>
-            <input type="password" class="pwbtn" id="userpw" placeholder="My Password">
+            <input type="password" class="pwbtn" id="userpw" required placeholder="My Password">
         </div>
         <div>
             <button class="signup" onclick="login()">로그인</button>
@@ -149,3 +154,4 @@
 </div>
 </body>
 </html>
+
