@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -16,29 +16,29 @@
 
 
     <script>
-{#        {% if msg %}#}
-{#            alert("{{ msg }}")#}
-{#        {% endif %}#}
-{#        function login() {#}
-{#            $.ajax({#}
-{#                type: "POST",#}
-{#                url: "/api/login",#}
-{#                data: {#}
-{#                    id_give: $('#userid').val(),#}
-{#                    pw_give: $('#userpw').val()#}
-{#                },#}
-{#                success: function (response) {#}
-{#                    if (response['result'] == 'success') {#}
-{#                        $.cookie('mytoken', response['token']);#}
-{##}
-{#                        alert('로그인 완료!')#}
-{#                        window.location.href = '/home'#}
-{#                    } else {#}
-{#                        alert(response['msg'])#}
-{#                    }#}
-{#                }#}
-{#            })#}
-{#        }#}
+        {#        {% if msg %}#}
+        {#            alert("{{ msg }}")#}
+        {#        {% endif %}#}
+        {#        function login() {#}
+        {#            $.ajax({#}
+        {#                type: "POST",#}
+        {#                url: "/api/login",#}
+        {#                data: {#}
+        {#                    id_give: $('#userid').val(),#}
+        {#                    pw_give: $('#userpw').val()#}
+        {#                },#}
+        {#                success: function (response) {#}
+        {#                    if (response['result'] == 'success') {#}
+        {#                        $.cookie('mytoken', response['token']);#}
+        {##}
+        {#                        alert('로그인 완료!')#}
+        {#                        window.location.href = '/home'#}
+        {#                    } else {#}
+        {#                        alert(response['msg'])#}
+        {#                    }#}
+        {#                }#}
+        {#            })#}
+        {#        }#}
         {% if msg %}
             alert("{{ msg }}")
         {% endif %}
@@ -66,6 +66,7 @@
 
     </script>
     <style>
+
         .img {
             position: absolute;
             display: inline-block;
@@ -95,7 +96,7 @@
             top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
-            {#box-shadow: 0px 0px 10px #5f5eff;#}
+        {#box-shadow: 0px 0px 10px #5f5eff;#}
         }
 
         .signup {
@@ -188,6 +189,7 @@
             font-weight: bold;
             font-size: 2em;
         }
+
         .mpw {
             position: absolute;
             display: inline-block;
@@ -201,6 +203,7 @@
             font-weight: bold;
             font-size: 2em;
         }
+
         button:hover {
             background: #6a3201;
         }
@@ -219,12 +222,15 @@
         </div>
         <div>
             <span class="mpw">PW</span>
-            <input type="password" class="pwbtn" id="userpw" required placeholder="My Password" style="background-color: wheat">
+            <input type="password" class="pwbtn" id="userpw" required placeholder="My Password"
+                   style="background-color: wheat">
         </div>
 
         <button class="signup" onclick="login()" style="background-color: wheat">로그인</button>
         <span class="fir">moda에 처음이신가요?</span>
-        <button class="signin" type="submit" onclick="window.location.href='/register'" style="background-color: wheat">회원가입</button>
+        <button class="signin" type="submit" onclick="window.location.href='/register'" style="background-color: wheat">
+            회원가입
+        </button>
     </div>
 </div>
 

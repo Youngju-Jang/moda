@@ -138,7 +138,7 @@
   <div class="card-body2">
     <h5 class="text-secondary"> ${num}번째 다이어리 from ${user} </h5>
     <p class="text-secondary">${text}</p>
-    <a href="#" class="btn btn-primary btn-sm">C O M M E N T</a>
+    <a href="/comment?num_give=${num}" class="btn btn-primary btn-sm">C O M M E N T</a>
   </div>
 </div>`
 
@@ -172,8 +172,8 @@
 <body>
 <div class="sidenav">
     <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
-    <a  href="#home">H o m e</a>
-    <a  href="#mypage">M y p a g e</a>
+    <a  href="/home">H o m e</a>
+    <a  href="/mypage">M y p a g e</a>
     <div class="logout_button">
         <button class="btn btn-secondary btn-sm" onclick="logout()">&nbsp; L O G O U T &nbsp;</button>
     </div>

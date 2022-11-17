@@ -8,174 +8,176 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <script>
 
-                function changePhone1() {
-                    const phone1 = document.getElementById("phone1").value // 010
-                    if (phone1.length === 3) {
-                        document.getElementById("phone2").focus();
-                    }
-                }
+        function changePhone1() {
+            const phone1 = document.getElementById("phone1").value // 010
+            if (phone1.length === 3) {
+                document.getElementById("phone2").focus();
+            }
+        }
 
-                function changePhone2() {
-                    const phone2 = document.getElementById("phone2").value // 010
-                    if (phone2.length === 4) {
-                        document.getElementById("phone3").focus();
-                    }
-                }
+        function changePhone2() {
+            const phone2 = document.getElementById("phone2").value // 010
+            if (phone2.length === 4) {
+                document.getElementById("phone3").focus();
+            }
+        }
 
-                function changePhone3() {
-                    const phone3 = document.getElementById("phone3").value // 010
-                    if (phone3.length === 4) {
-                        document.getElementById("sendMessage").focus();
-                        document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
-                        document.getElementById("sendMessage").disabled = false;
-                    }
-                }
+        function changePhone3() {
+            const phone3 = document.getElementById("phone3").value // 010
+            if (phone3.length === 4) {
+                document.getElementById("sendMessage").focus();
+                document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
+                document.getElementById("sendMessage").disabled = false;
+            }
+        }
 
-                // 문자인증+타이머 부분
-                function initButton() {
-                    document.getElementById("sendMessage").disabled = true;
-                    document.getElementById("completion").disabled = true;
-                    document.getElementById("certificationNumber").innerHTML = "000000";
-                    document.getElementById("timeLimit").innerHTML = "03:00";
-                    document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
-                    document.getElementById("completion").setAttribute("style", "background-color:wheat;")
-                }
+        // 문자인증+타이머 부분
+        function initButton() {
+            document.getElementById("sendMessage").disabled = true;
+            document.getElementById("completion").disabled = true;
+            document.getElementById("certificationNumber").innerHTML = "000000";
+            document.getElementById("timeLimit").innerHTML = "03:00";
+            document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
+            document.getElementById("completion").setAttribute("style", "background-color:wheat;")
+        }
 
-                let processID = -1;
+        let processID = -1;
 
-                const getToken = () => {
+        const getToken = () => {
 
-                    // 인증확인 버튼 활성화
-                    document.getElementById("completion").setAttribute("style", "background-color:wheat;")
-                    document.getElementById("completion").disabled = false;
+            // 인증확인 버튼 활성화
+            document.getElementById("completion").setAttribute("style", "background-color:wheat;")
+            document.getElementById("completion").disabled = false;
 
-                    if (processID != -1) clearInterval(processID);
-                    const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
-                    document.getElementById("certificationNumber").innerText = token;
-                    let time = 180;
-                    processID = setInterval(function () {
-                        if (time < 0 || document.getElementById("sendMessage").disabled) {
-                            clearInterval(processID);
-                            initButton();
-                            return;
-                        }
-                        let mm = String(Math.floor(time / 60)).padStart(2, "0");
-                        let ss = String(time % 60).padStart(2, "0");
-                        let result = mm + ":" + ss;
-                        document.getElementById("timeLimit").innerText = result;
-                        time--;
-                    }, 50);
-                };
-
-                function checkCompletion() {
-                    alert("문자 인증이 완료되었습니다.")
+            if (processID != -1) clearInterval(processID);
+            const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
+            document.getElementById("certificationNumber").innerText = token;
+            let time = 180;
+            processID = setInterval(function () {
+                if (time < 0 || document.getElementById("sendMessage").disabled) {
+                    clearInterval(processID);
                     initButton();
-                    document.getElementById("completion").innerHTML = "인증완료"
-                    document.getElementById("signUpButton").disabled = false;
-                    document.getElementById("signUpButton").setAttribute("style", "background-color:wheat;")
+                    return;
                 }
+                let mm = String(Math.floor(time / 60)).padStart(2, "0");
+                let ss = String(time % 60).padStart(2, "0");
+                let result = mm + ":" + ss;
+                document.getElementById("timeLimit").innerText = result;
+                time--;
+            }, 50);
+        };
 
-                {#function submit_check() {#}
-                {#    var id = document.getElementById("userid");#}
-                {#    var pw = document.getElementById("userpw");#}
-                {#    var nick = document.getElementById("usernick");#}
-                {#    #}
-                {#    if (id.value == "") {#}
-                {#    alert("아이디를 입력하세요!");#}
-                {#    id.focus();#}
-                {#    return false;#}
-                {#    }else if (pw.value == "") {#}
-                {#        alert("비밀번호를 입력하세요!");#}
-                {#        pw.focus();#}
-                {#        return false;#}
-                {#    }else if (nick.value == "") {#}
-                {#    alert("닉네임을 입력하세요!");#}
-                {#    nick.focus();#}
-                {#    return false;#}
-                {#    }else {#}
-                {#        alert("완료!");#}
-                {#        submit();#}
-                {#    }#}
+        function checkCompletion() {
+            alert("문자 인증이 완료되었습니다.")
+            initButton();
+            document.getElementById("completion").innerHTML = "인증완료"
+            document.getElementById("signUpButton").disabled = false;
+            document.getElementById("signUpButton").setAttribute("style", "background-color:wheat;")
+        }
 
-                var id_check = 0;
+        {#function submit_check() {#}
+        {#    var id = document.getElementById("userid");#}
+        {#    var pw = document.getElementById("userpw");#}
+        {#    var nick = document.getElementById("usernick");#}
+        {#    #}
+        {#    if (id.value == "") {#}
+        {#    alert("아이디를 입력하세요!");#}
+        {#    id.focus();#}
+        {#    return false;#}
+        {#    }else if (pw.value == "") {#}
+        {#        alert("비밀번호를 입력하세요!");#}
+        {#        pw.focus();#}
+        {#        return false;#}
+        {#    }else if (nick.value == "") {#}
+        {#    alert("닉네임을 입력하세요!");#}
+        {#    nick.focus();#}
+        {#    return false;#}
+        {#    }else {#}
+        {#        alert("완료!");#}
+        {#        submit();#}
+        {#    }#}
 
-                function register() {
-                    if (id_check == 0) {
-                        alert('아이디를 확인해주세요.')
+        var id_check = 0;
+
+        function register() {
+            if (id_check == 0) {
+                alert('아이디를 확인해주세요.')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/register",
+                    data: {
+                        id_give: $('#userid').val(),
+                        pw_give: $('#userpw').val(),
+                        nickname_give: $('#usernick').val()
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('회원가입이 완료되었습니다.')
+                            location.replace("/login")
+                        } else {
+                            alert(response['msg'])
+                        }
                     }
-                     else {
-                        $.ajax({
-                            type: "POST",
-                            url: "/api/register",
-                            data: {
-                                id_give: $('#userid').val(),
-                                pw_give: $('#userpw').val(),
-                                nickname_give: $('#usernick').val()
-                            },
-                            success: function (response) {
-                                if (response['result'] == 'success') {
-                                    alert('회원가입이 완료되었습니다.')
-                                    location.replace("/login")
-                                } else {
-                                    alert(response['msg'])
-                                }
-                            }
-                        })
+                })
+            }
+        }
+
+        {#function idCheck() {#}
+        {#    let userid_check = $('#userid').val()#}
+        {#    console.log(userid_check)#}
+        {##}
+        {#    $.ajax({#}
+        {#        type: "GET",#}
+        {#        url: "/api/register/id_check",#}
+        {#        data: {#}
+        {#            userid_give: userid_check#}
+        {#        },#}
+        {#        success: function (response) {#}
+        {#            if (response['status'] == 'success') {#}
+        {#                alert(response['msg'])#}
+        {#                id_check = 1;#}
+        {#            } else {#}
+        {#                alert(response['msg'])#}
+        {#                id_check = 0;#}
+        {#            }#}
+        {#        }#}
+        {#    })#}
+        {#}#}
+
+
+            $(function () {
+                $("#alert-success").hide();
+                $("#alert-danger").hide();
+                $("input").keyup(function () {
+                    var userpw = $("#userpw").val();
+                    var chkpw = $("#chkpw").val();
+                    if (userpw != "" || chkpw != "") {
+                        if (userpw == chkpw) {
+                            $("#alert-success").show();
+                            $("#alert-danger").hide();
+                            $("#submit").removeAttr("disabled");
+                        } else {
+                            $("#alert-success").hide();
+                            $("#alert-danger").show();
+                            $("#submit").Attr("disabled", "disabled");
+                        }
                     }
-                }
-
-                {#function idCheck() {#}
-                {#    let userid_check = $('#userid').val()#}
-                {#    console.log(userid_check)#}
-                {##}
-                {#    $.ajax({#}
-                {#        type: "GET",#}
-                {#        url: "/api/register/id_check",#}
-                {#        data: {#}
-                {#            userid_give: userid_check#}
-                {#        },#}
-                {#        success: function (response) {#}
-                {#            if (response['status'] == 'success') {#}
-                {#                alert(response['msg'])#}
-                {#                id_check = 1;#}
-                {#            } else {#}
-                {#                alert(response['msg'])#}
-                {#                id_check = 0;#}
-                {#            }#}
-                {#        }#}
-                {#    })#}
-                {#}#}
-
-
-                    $(function () {
-                        $("#alert-success").hide();
-                        $("#alert-danger").hide();
-                        $("input").keyup(function () {
-                            var userpw = $("#userpw").val();
-                            var chkpw = $("#chkpw").val();
-                            if (userpw != "" || chkpw != "") {
-                                if (userpw == chkpw) {
-                                    $("#alert-success").show();
-                                    $("#alert-danger").hide();
-                                    $("#submit").removeAttr("disabled");
-                                } else {
-                                    $("#alert-success").hide();
-                                    $("#alert-danger").show();
-                                    $("#submit").Attr("disabled", "disabled");
-                                }
-                            }
-                        });
-                    });
+                });
+            });
 
 
     </script>
     <style>
+        @import url("../static/css/nav.css");
+
         .main {
             position: absolute;
             display: inline-block;

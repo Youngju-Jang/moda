@@ -9,318 +9,325 @@
     <!--  google font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
     <!-- material-icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+{#    <link rel="stylesheet"#}
+{#          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>#}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
-  <style>
-      /* common */
-      * {
-            font-family: 'Dongle', sans-serif;
+<style>
+    /* common */
+    @import url("../static/css/nav.css");
 
-        }
+    * {
+        font-family: 'Dongle', sans-serif !important;
 
-      body {
-          {#height: 3500px;#}
-          color: #fff;
-          font-size: 16px;
-          font-weight: 400;
-          line-height: 1.4;
+    }
+
+    body {
+    {#height: 3500px;#} color: #fff;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
 
 
-          background-color: white;
-      }
+        background-color: white;
+    }
 
-      a {
-          color: white;
-          text-decoration: none;
-      }
+    a {
+        color: white;
+        text-decoration: none;
+    }
 
-      img {
-          display: block;
+    img {
+        display: block;
 
-      }
+    }
 
-      .btn {
-          width: 130px;
-          padding: 10px;
-          border: 2px solid #333;
-          border-radius: 50px;
-          color: #333;
-          font-size: 24px;
-          font-weight: 700;
-          text-align: center;
-          cursor: pointer;
-          box-sizing: border-box;
-          display: block;
-          transition: .4s;
-      }
+    .btn {
+        width: 130px;
+        padding: 10px;
+        border: 2px solid #333;
+        border-radius: 50px;
+        color: #333;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        box-sizing: border-box;
+        display: block;
+        transition: .4s;
+    }
 
-      .btn.btn--brown {
-          color: #FFF;
-          background-color: #592B18;
-      }
+    .btn.btn--brown {
+        color: #FFF;
+        background-color: #592B18;
+    }
 
-      .btn.btn--brown:hover {
-          color: #592B18;
-          background-color: darkgray;
-          border-color: #592B18;
-      }
+    .btn.btn--brown:hover {
+        color: #592B18;
+        background-color: darkgray;
+        border-color: #592B18;
+    }
 
-      .sidenav {
-            width: 300px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: white;
-            opacity: 1;
-            overflow-x: hidden;
-            padding-top: 20px;
-            max-width: 100%;
-            height: 100%;
-        }
+    .sidenav {
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: white;
+        opacity: 1;
+        overflow-x: hidden;
+        padding-top: 20px;
+        max-width: 100%;
+        height: 100%;
+    }
 
-        .modaimage {
-            margin: 50px 8px 10px 74px;
-            background-image: url("../static/img/logo.png");
-            background-position: center;
-            background-size: cover;
+    .modaimage {
+        margin: 50px 8px 10px 74px;
+        {#background-image: url("../static/img/logo.png");#}
+        background-position: center;
+        background-size: cover;
+    }
+
+    .sidenav a {
+        padding: 40px 8px 10px 5px;
+        text-decoration: none;
+        font-size: 45px;
+        font-weight: 500;
+        color: #1da1f2;
+        display: block;
+        text-align: center;
+    }
+
+    .sidenav a:hover {
+        color: maroon;
+    }
+
+    .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
         }
 
         .sidenav a {
-            padding: 40px 8px 10px 5px;
-            text-decoration: none;
-            font-size: 45px;
-            font-weight: 500;
-            color: #1da1f2;
-            display: block;
-            text-align: center;
+            font-size: 18px;
         }
-
-        .sidenav a:hover {
-            color: maroon;
-        }
-
-        .main {
-            margin-left: 160px; /* Same as the width of the sidenav */
-            font-size: 28px; /* Increased text to enable scrolling */
-            padding: 0px 10px;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-            }
-
-            .sidenav a {
-                font-size: 18px;
-            }
-        }
+    }
 
 
-      /* MAINBODY */
-      .wrap {
-          max-width: 825px;
-          width: 95%;
-          height: 100%;
+    /* MAINBODY */
+    .wrap {
+        max-width: 825px;
+        width: 95%;
+        height: 100%;
 
-          margin: 20px auto 0 auto;
-          margin-left: 300px;
-          border-right: 1px solid #fff;
-          border-left: 1px solid #fff;
-          border-radius: 20px 20px 0 0;
+        margin: 20px auto 0 auto;
+        margin-left: 300px;
+        border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
+        border-radius: 20px 20px 0 0;
 
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          background-color: #1da1f2;
-      }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #1da1f2;
+    }
 
-      .wrap > .inners {
-          width: 100%;
-          height: 100%;
-          margin: 20px auto 0 auto;
+    .wrap > .inners {
+        width: 100%;
+        height: 800px;
+        margin: 20px auto 0 auto;
 
-      }
+    }
 
-      .wrap .material-icons {
-          margin: 0 0 20px 20px;
-          color: #592B18;
-          cursor: pointer;
-      }
+    .wrap .material-icons {
+        margin: 0 0 20px 20px;
+        color: #592B18;
+        cursor: pointer;
+    }
 
-      .wrap .material-icons:hover {
-          color: darkgray;
-      }
+    .wrap .material-icons:hover {
+        color: darkgray;
+    }
 
-      .wrap .post_box {
-          width: 725px;
-          border-bottom: 1px solid #fff;
-          color: #fff;
-          font-size: 30px;
-          font-weight: bold;
+    .wrap .post_box {
+        width: 725px;
+        border-bottom: 1px solid #fff;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
 
-          padding: 0 0px 50px 100px;
-      }
+        padding: 0 0px 50px 100px;
+    }
 
-      .wrap .post_box .nickname div {
-          color: lightgrey;
-          font-size: 18px;
-          font-weight: bold;
+    .wrap .post_box .nickname div {
+        color: lightgrey;
+        font-size: 18px;
+        font-weight: bold;
 
-          padding: 20px;
-      }
+        padding: 20px;
+    }
 
-      .wrap .post_box .text_box {
-          font-size: 26px;
-          padding:  20px;
-      }
+    .wrap .post_box .text_box {
+        font-size: 26px;
+        padding: 20px;
+    }
 
-      .wrap .post_box .img_box  {
-          width: 100%;
-          margin: 50px 0 70px 0;
+    .wrap .post_box .img_box {
+        width: 100%;
+        margin: 50px 0 70px 0;
 
-          display: flex;
-          justify-content: center;
-          overflow: hidden;
-      }
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
 
-      .wrap > .inners .input_box {
-          width: 100%;
-          height: 200px;
-          font-size: 18px;
-          font-weight: bold;
+    .wrap > .inners .input_box {
+        width: 100%;
+        height: 200px;
+        font-size: 18px;
+        font-weight: bold;
 
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-          align-content: space-around;
-          justify-content: center;
-          align-items: flex-start;
-          border-bottom: 1px solid #fff;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: space-around;
+        justify-content: center;
+        align-items: flex-start;
+        border-bottom: 1px solid #fff;
 
 
-      }
+    }
 
-      .wrap > .inners .input_box .input_name {
+    .wrap > .inners .input_box .input_name {
 
-          margin-bottom: 10px;
+        margin-bottom: 10px;
 
-      }
+    }
 
-      .wrap > .inners .input_box input {
+    .wrap > .inners .input_box input {
         margin-left: 60px;
-      }
+    }
 
-      .wrap > .inners .input_box div p {
-          font-size: 18px;
-          margin-right: 10px;
-      }
+    .wrap > .inners .input_box div p {
+        font-size: 18px;
+        margin-right: 10px;
+    }
 
-      .wrap > .inners .input_box input {
-          width: 450px;
-          height: 50px;
-          color: #fff;
-          font-size: 18px;
-          font-family: 'Nanum Gothic', sans-serif;
-          margin-right: 20px;
-          outline: none;
+    .wrap > .inners .input_box input {
+        width: 450px;
+        height: 50px;
+        color: #fff;
+        font-size: 18px;
+        font-family: 'Nanum Gothic', sans-serif;
+        margin-right: 20px;
+        outline: none;
 
-          border-color: transparent;
-          border-bottom: 1px solid #fff;
+        border-color: transparent;
+        border-bottom: 1px solid #fff;
 
-          background-color: transparent;
-          transition: .4s;
-      }
+        background-color: transparent;
+        transition: .4s;
+    }
 
-      .wrap > .inners .input_box input:focus {
-          border-bottom: 3px solid #fff;
-      }
-      .wrap > .inners .input_box input::placeholder {
-          color: gray;
-          font-size: 18px;
-          font-family: 'Nanum Gothic', sans-serif;
-      }
+    .wrap > .inners .input_box input:focus {
+        border-bottom: 3px solid #fff;
+    }
 
-      .wrap .comment_wrap .comment_box {
-          border-bottom: 1px solid #fff;
-          position: relative;
-      }
+    .wrap > .inners .input_box input::placeholder {
+        color: gray;
+        font-size: 18px;
+        font-family: 'Nanum Gothic', sans-serif;
+    }
 
-      .wrap .comment_wrap .comment_box .nickname p {
-          color: lightgrey;
-          font-weight: bold;
-          font-size: 20px;
-          margin: 30px 0 20px 120px;
-      }
+    .wrap .comment_wrap .comment_box {
+        border-bottom: 1px solid #fff;
+        position: relative;
+    }
 
-      .wrap .comment_wrap .comment_box .nickname .material-icons {
-          color: #592B18;
-          cursor: pointer;
-          position: absolute;
-          top: 0;
-          right: 20px;
-      }
+    .wrap .comment_wrap .comment_box .nickname p {
+        color: lightgrey;
+        font-weight: bold;
+        font-size: 20px;
+        margin: 30px 0 20px 120px;
+    }
 
-      .wrap .comment_wrap .comment_box .nickname .material-icons:hover {
-          color: darkgray;
-      }
+    .wrap .comment_wrap .comment_box .nickname .material-icons {
+        color: #592B18;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 20px;
+    }
 
-      .wrap .comment_wrap .comment_box .comment {
-          font-size: 30px;
-          padding:  20px;
-          margin-left: 100px;
-          font-weight: bold;
-      }
+    .wrap .comment_wrap .comment_box .nickname .material-icons:hover {
+        color: darkgray;
+    }
 
-      #to-top {
-          width: 42px;
-          height: 42px;
-          color: #FFF;
-          background-color: #592B18;
-          border-radius: 10px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: fixed;
-          bottom: 30px;
-          right: 10px;
-          cursor: pointer;
-          z-index: 9;
-      }
-      #to-top:hover {
-          background-color: darkgray;
-      }
+    .wrap .comment_wrap .comment_box .comment {
+        font-size: 30px;
+        padding: 20px;
+        margin-left: 100px;
+        font-weight: bold;
+    }
 
-  </style>
+    #to-top {
+        width: 42px;
+        height: 42px;
+        color: #FFF;
+        background-color: #592B18;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 30px;
+        right: 10px;
+        cursor: pointer;
+        z-index: 9;
+    }
 
-    <script>
-        const num = {{ num }}
-        console.log(num)
-        $(document).ready(function () {
-            show_comment();
-        });
+    #to-top:hover {
+        background-color: darkgray;
+    }
 
-        function show_comment() {
-            $.ajax({
-                type: "GET",
-                url: "/comment/comment1",
-                data: {},
-                success: function (response) {
-                    let rows = response['comment'];
+</style>
 
-                    for (let i = 0; i < rows.length; ++i) {
-                        let user = rows[i]['user']
-                        let num = rows[i]['comment_num']
-                        let comment = rows[i]['comment']
+<script>
+    const num = {{ num }}
+    $(document).ready(function () {
+        show_comment();
+    });
 
-                        let temp_html = `<ul class="comment_box">
+    function show_comment() {
+        $.ajax({
+            type: "GET",
+            url: "/comment/comment1?num_give="+num,
+            data: {},
+            success: function (response) {
+                let rows = response['comment'];
+
+                for (let i = 0; i < rows.length; ++i) {
+                    let user = rows[i]['user']
+                    let num = rows[i]['comment_num']
+                    let comment = rows[i]['comment']
+
+                    let temp_html = `<ul class="comment_box">
                                             <li class="nickname">
                                                 <a onclick="cancel_comment(${num})" ><div class="material-icons">cancel</div></a>
                                                 <p>- ${user} -</p>
@@ -329,65 +336,66 @@
                                                 <p>${comment}</p>
                                             </li>
                                         </ul>`
-                        $('#cm_wrap').append(temp_html)
+                    $('#cm_wrap').append(temp_html)
 
-                    }
                 }
-            });
-        }
-        $(document).ready(function () {
-            show_diary();
+            }
         });
-        function show_diary() {
-            $.ajax({
-                type: "GET",
-                url: "/comment/comment2",
-                data: {},
-                success: function (response) {
-                    let rows = response['text'];
+    }
 
-                        for (let i = 0; i < rows.length; ++i) {
-                                // let num = rows[i]['write_num']
+    $(document).ready(function () {
+        show_diary();
+    });
 
-                                let user = rows[i]['user']
-                                let comment = rows[i]['comment']
+    function show_diary() {
+        $.ajax({
+            type: "GET",
+            url: "/comment/comment2?num_give="+num,
+            data: {},
+            success: function (response) {
+                let rows = response['text'];
 
-                                let temp_html = `<div class="nickname">
+                for (let i = 0; i < rows.length; ++i) {
+                    // let num = rows[i]['write_num']
+
+                    let user = rows[i]['user']
+                    let comment = rows[i]['text']
+
+                    let temp_html = `<div class="nickname">
                                             <div>- ${user} -</div>
                                         </div>
                                         <div class="text_box">
                                             <p>${comment}</p>
                                         </div>`
-                                $('#diary').append(temp_html)
+                    $('#diary').append(temp_html)
 
-
-                        }
 
                 }
-            });
-        }
+
+            }
+        });
+    }
 
 
+    function save_comment() {
+        let user = $('#user').val()
+        let comment = $('#comment').val()
+        $.ajax({
+            type: "POST",
+            url: "/comment/comment1",
+            data: {comment_give: comment, user_give: user,
+                    num_give: num},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            }
+        });
+    }
 
-
-        function save_comment() {
-            let user = $('#user').val()
-            let comment = $('#comment').val()
+    function cancel_comment(num) {
+        let cancel = confirm("댓글을 삭제 하시겠습니까?")
+        if (cancel) {
             $.ajax({
-                type: "POST",
-                url: "/comment/comment1",
-                data: { comment_give: comment, user_give: user },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload()
-                }
-            });
-        }
-
-        function cancel_comment(num) {
-            let cancel = confirm("댓글을 삭제 하시겠습니까?")
-            if (cancel) {
-                $.ajax({
                 type: "POST",
                 url: "/comment/done",
                 data: {num_give: num},
@@ -396,60 +404,60 @@
                     window.location.reload()
                 }
             });
-            } else {
+        } else {
 
-            }
         }
+    }
 
-    </script>
+</script>
 
 
 <body>
-    <div class="sidenav">
-        <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
-        <a href="#home">H o m e</a>
-        <a href="#list">L i s t</a>
-        <a href="#mypage">M y p a g e</a>
+<div class="sidenav">
+    <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
+    <a  href="/home">H o m e</a>
+    <a  href="/mypage">M y p a g e</a>
+    <div class="logout_button">
+{#        <button class="btn btn-secondary btn-sm" onclick="logout()">&nbsp; L O G O U T &nbsp;</button>#}
     </div>
-    <div class="wrap">
-        <div class="inners">
-            <button type="button" onclick="location.href='/comment?num_give=3'">forMJ3</button>
-            <button type="button" onclick="comment7(7)">forMJ7</button>
+</div>
+<div class="wrap">
+    <div class="inners">
 
-            <a href="/home" class="material-icons">arrow_back</a>
-            <div id="diary" class="post_box">
+{#        <a href="/home" class="material-icons"></a>#}
+        <div id="diary" class="post_box">
 
+        </div>
+        <div class="input_box">
+            <div class="input_name">
+                <div><p>작성자</p></div>
+                <input id="user" type="text" placeholder="작성자 입력 해주세요"/>
             </div>
-            <div class="input_box">
-                <div class="input_name">
-                    <div><p>작성자</p></div>
-                    <input id="user" type="text" placeholder="작성자 입력 해주세요" />
-                </div>
-                <div class="input_comment">
-                    <div><p>댓글</p></div>
-                    <input id="comment" type="text" placeholder="코멘트를 입력 해주세요" />
-                </div>
-                <button onclick="save_comment()" class="btn btn--brown">Sumit</button>
+            <div class="input_comment">
+                <div><p>댓글</p></div>
+                <input id="comment" type="text" placeholder="코멘트를 입력 해주세요"/>
             </div>
-            <div id="cm_wrap" class="comment_wrap">
+            <button onclick="save_comment()" class="btn btn--brown">Submit</button>
+        </div>
+        <div id="cm_wrap" class="comment_wrap">
 
-            </div>
         </div>
     </div>
+</div>
 
+{##}
+{#<div id="to-top">#}
+{#    <a class="material-icons">arrow_upward</a>#}
+{#</div>#}
 
-    <div id="to-top">
-      <a class="material-icons">arrow_upward</a>
-    </div>
+<script>
+    const scrollTo = document.querySelector('#to-top');
 
-    <script>
-        const scrollTo = document.querySelector('#to-top');
+    scrollTo.addEventListener('click', () => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    });
 
-        scrollTo.addEventListener('click', () => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      });
-
-    </script>
+</script>
 
 </body>
 </html>

@@ -7,10 +7,8 @@ import certifi
 
 ca = certifi.where()
 
-# client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
-client = MongoClient('mongodb+srv://Minj:alswoqjffp45@cluster0.7597pmh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
-# db = client.moda
-db = client.dbsparta
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.moda
 
 
 @routes.route('/comment')
@@ -24,20 +22,19 @@ def comment_post():
 
     comment_receive = request.form['comment_give']
     user_receive = request.form['user_give']
+    num_receive = request.form['num_give']
 
-    write_num = db.comment.find_one({'write_num': int(7)})['write_num']
-
-    comment_test_list = list(db.comment_test.find({'write_num':int(7)}, {'_id': False}))
+    comment_test_list = list(db.comment.find({'write_num':int(num_receive)}, {'_id': False}))
     count = len(comment_test_list) + 1
 
     doc = {
-        'write_num' : write_num,
+        'write_num' : int(num_receive),
         'comment_num': count,
         'user' : user_receive,
         'comment': comment_receive,
     }
 
-    db.comment_test.insert_one(doc)
+    db.comment.insert_one(doc)
 
     return jsonify({'msg': '댓글 등록 완료!!'})
 
@@ -45,7 +42,7 @@ def comment_post():
 @routes.route("/comment/done", methods=["POST"])
 def comment_done():
     cancel_receive = request.form['num_give']
-    db.comment_test.delete_one({'comment_num': int(cancel_receive)})
+    db.comment.delete_one({'comment_num': int(cancel_receive)})
 
     return jsonify({'msg': '댓글 삭제 완료 !!'})
 
@@ -55,7 +52,7 @@ def comment_done():
 def commment_get():
     num_receive = request.args.get('num_give')
 
-    comment_list = list(db.comment_test.find({'write_num': int(7)},{'_id':False}))
+    comment_list = list(db.comment.find({'write_num': int(num_receive)},{'_id':False}))
 
 
     return jsonify({'comment': comment_list})
@@ -67,7 +64,7 @@ def commment_get():
 def text_get():
     num_receive = request.args.get('num_give')
 
-    text_list = list(db.comment.find({'write_num': int(7)}, {'_id': False}))
+    text_list = list(db.write.find({'write_num': int(num_receive)}, {'_id': False}))
 
     return jsonify({'text': text_list})
 

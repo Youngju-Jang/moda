@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,6 +18,67 @@
     <style>
         @import url("../static/css/nav.css");
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        * {
+            font-family: 'Dongle', sans-serif !important;
+            color: white;
+        }
+
+        .sidenav {
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: white;
+            opacity: 1;
+            overflow-x: hidden;
+            padding-top: 20px;
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .modaimage {
+            margin: 50px 8px 10px 74px;
+
+        }
+
+        .sidenav a {
+            padding: 24px 8px 10px 5px;
+            text-decoration: none;
+            font-size: 45px;
+            font-weight: 500;
+            color: #1da1f2;
+            display: block;
+            text-align: center;
+        }
+
+        .sidenav a:hover {
+            color: maroon;
+        }
+
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+        body {
+            background: #1da1f2;
+            background-position: center;
+            background-size: cover;
+        }
 
         * {
             font-family: 'Open Sans', sans-serif;
@@ -188,6 +250,10 @@
             background-position: center;
             background-size: cover;
         }
+        .logout_button {
+            margin-left: 110px;
+            margin-top: 30px;
+        }
     </style>
     <script>
         const user = $.cookie('user');
@@ -233,7 +299,7 @@
                         }
                     } else {
                         if (good_give) {
-                            $(e).next().text(goods_length )
+                            $(e).next().text(goods_length)
                         } else {
                             $(e).next().text(goods_length - 1)
                         }
@@ -403,13 +469,16 @@
     </script>
 </head>
 <body>
-<nav></nav>
-<main>
-    <nav class="sidenav">
+<div class="sidenav">
         <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
         <a href="/home">H o m e</a>
         <a href="/mypage">M y p a g e</a>
-    </nav>
+        <div class="logout_button">
+            <button class="btn btn-secondary btn-sm" onclick="logout()">&nbsp; L O G O U T &nbsp;</button>
+        </div>
+    </div>
+<main>
+
     <div class="main">
         <!--사진수정-->
         <div id="profile">
@@ -431,21 +500,21 @@
                 </div>
             </form>
         </div>
-{#        <!--    임시 유저 생성칸-->#}
-{#        <div class="mybox">#}
-{#            <div class="mybucket">#}
-{#                <input id="diary" class="form-control" type="text" placeholder="오늘의 일기">#}
-{#                <button onclick="save_bucket()" type="button" class="btn btn-outline-primary">일기쓰기</button>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <!--    임시 코멘트 생성칸-->#}
-{#        <div class="mybox">#}
-{#            <div class="mybucket">#}
-{#                <input id="comment" class="form-control" type="text" placeholder="오늘의 일기">#}
-{#                <button onclick="save_comment()" type="button" class="btn btn-outline-primary">댓글달기</button>#}
-{#            </div>#}
-{#        </div>#}
+        {#        <!--    임시 유저 생성칸-->#}
+        {#        <div class="mybox">#}
+        {#            <div class="mybucket">#}
+        {#                <input id="diary" class="form-control" type="text" placeholder="오늘의 일기">#}
+        {#                <button onclick="save_bucket()" type="button" class="btn btn-outline-primary">일기쓰기</button>#}
+        {#            </div>#}
+        {#        </div>#}
+        {##}
+        {#        <!--    임시 코멘트 생성칸-->#}
+        {#        <div class="mybox">#}
+        {#            <div class="mybucket">#}
+        {#                <input id="comment" class="form-control" type="text" placeholder="오늘의 일기">#}
+        {#                <button onclick="save_comment()" type="button" class="btn btn-outline-primary">댓글달기</button>#}
+        {#            </div>#}
+        {#        </div>#}
         <div class="mybox" id="diary-list"></div>
     </div>
 </main>
