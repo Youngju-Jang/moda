@@ -54,7 +54,6 @@
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token']);
                         $.cookie('user', response['user']);
-                        console.log($.cookie('user'))
                         alert('로그인 완료!')
                         location.replace('/home')
                     } else {
@@ -202,6 +201,9 @@
             font-weight: bold;
             font-size: 2em;
         }
+        button:hover {
+            background: #6a3201;
+        }
     </style>
 </head>
 <body>
@@ -222,7 +224,7 @@
 
         <button class="signup" onclick="login()" style="background-color: wheat">로그인</button>
         <span class="fir">moda에 처음이신가요?</span>
-        <button class="signin" onclick="window.location.href='/register'" style="background-color: wheat">회원가입</button>
+        <button class="signin" type="submit" onclick="window.location.href='/register'" style="background-color: wheat">회원가입</button>
     </div>
 </div>
 
