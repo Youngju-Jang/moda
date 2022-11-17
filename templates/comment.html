@@ -301,6 +301,8 @@
   </style>
 
     <script>
+        const num = {{ num }}
+        console.log(num)
         $(document).ready(function () {
             show_comment();
         });
@@ -412,7 +414,7 @@
     <div class="wrap">
         <div class="inners">
             <button type="button" onclick="location.href='/comment?num_give=3'">forMJ3</button>
-            <button type="button" onclick="location.href='/comment?num_give=7'">forMJ7</button>
+            <button type="button" onclick="comment7(7)">forMJ7</button>
 
             <a href="/home" class="material-icons">arrow_back</a>
             <div id="diary" class="post_box">
