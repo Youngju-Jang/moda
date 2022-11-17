@@ -16,6 +16,29 @@
 
 
     <script>
+{#        {% if msg %}#}
+{#            alert("{{ msg }}")#}
+{#        {% endif %}#}
+{#        function login() {#}
+{#            $.ajax({#}
+{#                type: "POST",#}
+{#                url: "/api/login",#}
+{#                data: {#}
+{#                    id_give: $('#userid').val(),#}
+{#                    pw_give: $('#userpw').val()#}
+{#                },#}
+{#                success: function (response) {#}
+{#                    if (response['result'] == 'success') {#}
+{#                        $.cookie('mytoken', response['token']);#}
+{##}
+{#                        alert('로그인 완료!')#}
+{#                        window.location.href = '/home'#}
+{#                    } else {#}
+{#                        alert(response['msg'])#}
+{#                    }#}
+{#                }#}
+{#            })#}
+{#        }#}
         {% if msg %}
             alert("{{ msg }}")
         {% endif %}
@@ -30,15 +53,17 @@
                 success: function (response) {
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token']);
-
+                        $.cookie('user', response['user']);
+                        console.log($.cookie('user'))
                         alert('로그인 완료!')
-                        window.location.href = '/'
+                        location.replace('/home')
                     } else {
                         alert(response['msg'])
                     }
                 }
             })
         }
+
 
     </script>
     <style>
@@ -49,9 +74,9 @@
             justify-content: center;
             align-items: center;
             margin-top: 14%;
-            width: 80%;
+            width: 10%;
             max-width: 95%;
-            top: 30%;
+            top: -10%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -62,12 +87,16 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            border-radius: 50px;
+            border-radius: 25px;
+            border: 5px solid #6a3201;
             margin-top: 5%;
-            width: 50%;
-            height: 80%;
-            background-color: black;
-            left: 10%;
+            width: 25%;
+            height: 45%;
+            background-color: snow;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            {#box-shadow: 0px 0px 10px #5f5eff;#}
         }
 
         .signup {
@@ -77,13 +106,13 @@
             justify-content: center;
             align-items: center;
             border: 1px solid black;
-            border-radius: 50px;
+            border-radius: 5px;
             width: 8%;
             height: 5%;
             top: 55%;
-            right: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             max-width: 95%;
-            margin-right: 2%;
         }
 
         .signin {
@@ -93,11 +122,12 @@
             justify-content: center;
             align-items: center;
             border: 1px solid black;
-            border-radius: 50px;
+            border-radius: 5px;
             width: 8%;
             height: 5%;
-            top: 55%;
-            right: 15%;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             max-width: 95%;
         }
 
@@ -108,11 +138,12 @@
             justify-content: center;
             align-items: center;
             border: 1px solid black;
-            border-radius: 50px;
+            border-radius: 5px;
             padding: 20px;
-            width: 20%;
-            top: 35%;
-            right: 15%;
+            width: 15%;
+            top: 37%;
+            right: 35%;
+            transform: translate(-50%, -50%);
             max-width: 95%;
         }
 
@@ -123,33 +154,77 @@
             justify-content: center;
             align-items: center;
             border: 1px solid black;
-            border-radius: 50px;
+            border-radius: 5px;
             padding: 20px;
-            width: 20%;
+            width: 15%;
             top: 45%;
-            right: 15%;
+            right: 35%;
+            transform: translate(-50%, -50%);
             max-width: 95%;
         }
 
+        .fir {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 95%;
+            font-weight: bold;
+        }
+
+        .mid {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 20%;
+            top: 32%;
+            right: 41%;
+            font-weight: bold;
+            font-size: 2em;
+        }
+        .mpw {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 20%;
+            top: 40%;
+            right: 42%;
+            font-weight: bold;
+            font-size: 2em;
+        }
     </style>
 </head>
 <body>
 <div>
+    <img src="https://i.imgur.com/ngFHyCw.png" class="img">
     <div class="main">
-        <img src="https://www.nominate.com/images/largeflags/moda.gif" class="img">
+
     </div>
-    <div>
+    <div class="main1">
         <div class="field is-horizontal">
-            <input type="text" class="idbtn" id="userid" required placeholder="My ID">
+            <span class="mid">ID</span>
+            <input type="text" class="idbtn" id="userid" required placeholder="My ID" style="background-color: wheat">
         </div>
         <div>
-            <input type="password" class="pwbtn" id="userpw" required placeholder="My Password">
+            <span class="mpw">PW</span>
+            <input type="password" class="pwbtn" id="userpw" required placeholder="My Password" style="background-color: wheat">
         </div>
-        <div>
-            <button class="signup" onclick="login()">로그인</button>
-            <button class="signin" onclick="window.location.href='/register'">회원가입</button>
-        </div>
+
+        <button class="signup" onclick="login()" style="background-color: wheat">로그인</button>
+        <span class="fir">moda에 처음이신가요?</span>
+        <button class="signin" onclick="window.location.href='/register'" style="background-color: wheat">회원가입</button>
     </div>
+</div>
 
 </div>
 </body>

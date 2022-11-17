@@ -12,7 +12,8 @@ db = client.dbsparta
 
 @routes.route("/mypage", methods=["GET"])
 def mypage():
-    user = db.user.find_one({'id': '장영주'})
+    id = request.cookies.get('user')
+    user = db.user.find_one({'id': id})
     return render_template('mypage.html', user=user)
 
 
@@ -34,6 +35,7 @@ def temp_usermake():
 @routes.route("/temp_comment", methods=["POST"])
 def temp_commentMake():
     comment_receive = request.form['comment_give']
+    user_receive = request.form['user_give']
     temp = db.comment.find_one({}, sort=[('comment_num', -1)])
     max_num = 0
 
@@ -44,10 +46,10 @@ def temp_commentMake():
 
     count = max_num + 1
 
-    doc = {'write_num': 7,
+    doc = {'write_num': 11,
            'comment_num': count,
            'comment': comment_receive,
-           'user': '장영주'
+           'user': user_receive
            }
 
     db.comment.insert_one(doc)
@@ -58,9 +60,10 @@ def temp_commentMake():
 @routes.route("/mypage", methods=["PATCH"])
 def change_image():
     url_receive = request.form['url_give']
+    id_receive = request.form['id_give']
 
     # 로그인기능 생성 후 id 수정필요
-    db.user.update_one({'id': "장영주"}, {'$set': {'url': url_receive}})
+    db.user.update_one({'id': id_receive}, {'$set': {'url': url_receive}})
     return jsonify({'msg': ".."});
 
 
@@ -68,6 +71,7 @@ def change_image():
 @routes.route("/temp_makeDiray", methods=["POST"])
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
+    user_receive = request.form['user']
     max_num = 0
     temp = db.write.find_one({}, sort=[('write_num', -1)])
     if temp is None:
@@ -79,9 +83,9 @@ def temp_makeDiray():
 
     doc = {
         'write_num': count,
-        'user': "장영주",
+        'user': user_receive,
         'text': diary_receive,
-        'good': ["아무개"]
+        'good': []
     }
     db.write.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
@@ -91,10 +95,15 @@ def temp_makeDiray():
 @routes.route("/temp_diary", methods=["GET"])
 def diary_get():
     # 로그인 구현 후엔 user명 session에서 받아오도록 수정필요
-    user = "장영주"
+    user = request.cookies.get('user')
     diary_comment_list = list(db.write.find({'user': user}, {'_id': False}))
 
     pipeline = [
+        {
+            "$match": {
+                'user': user
+            }
+        },
         {
             "$lookup": {
                 "from": "comment",
@@ -126,7 +135,7 @@ def diary_get():
 @routes.route("/mypage", methods=["DELETE"])
 def delete_diary():
     write_num = request.form['num_give']
-    user = "장영주"
+    user = request.cookies.get('user')
     db.write.delete_one({'user': user, 'write_num': int(write_num)})
     return jsonify({'msg': '삭제 완료'})
 
@@ -134,7 +143,7 @@ def delete_diary():
 ###  좋아요
 @routes.route("/mypage/good", methods=["PATCH"])
 def good_update():
-    good_receive = request.form['user_give']  # "장영주"
+    good_receive = request.form['user_give']
     write_num = request.form['num_give']
     good_give = request.form['good_give']  # t or f
     if good_give == 'true':
