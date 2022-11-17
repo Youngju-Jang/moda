@@ -132,6 +132,8 @@ def diary_get():
         for comment in diary_comment['commentInfo']:
             if comment.get("_id"):
                 comment.pop("_id")
+
+    print(diary_comment_list)
     return jsonify({'diary_comment_list': diary_comment_list})
 
 
