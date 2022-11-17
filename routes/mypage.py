@@ -38,6 +38,7 @@ def temp_usermake():
 def temp_commentMake():
     comment_receive = request.form['comment_give']
     user_receive = request.form['user_give']
+    # write_num
     temp = db.comment.find_one({}, sort=[('comment_num', -1)])
     max_num = 0
 
@@ -74,6 +75,7 @@ def change_image():
 def temp_makeDiray():
     diary_receive = request.form['diary_give']
     user_receive = request.form['user']
+
     max_num = 0
     temp = db.write.find_one({}, sort=[('write_num', -1)])
     if temp is None:
