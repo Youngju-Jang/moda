@@ -44,7 +44,7 @@
         }
 
         .sidenav a {
-            padding: 40px 8px 10px 5px;
+            padding: 24px 8px 10px 5px;
             text-decoration: none;
             font-size: 45px;
             font-weight: 500;
@@ -91,6 +91,8 @@
             width: 500px;
             margin: 0px auto -20px auto;
             font-size: 25px;
+            border-radius: 35px;
+            padding: 17px 0px 10px 27px;
         }
 
 
@@ -98,6 +100,23 @@
             margin: 40px 0;
             font-size: 25px;
         }
+
+        .logout_button {
+            margin:30px 0px 0px 110px;
+        }
+
+        .post_button{
+            margin:0px 0px -5px 430px;
+        }
+
+
+
+
+
+
+
+
+
 
         option {
             color: black;
@@ -118,9 +137,9 @@
                     for (let i = 0; i < rows.length; i++) {
                         let name = rows[i]['name']
 
-                        let temp_html = `<div class="card w-75">
-  <div class="card-body">
-    <h5 class="text-secondary">U S E R N A M E</h5>
+                        let temp_html = `<div class="card mt-3">
+  <div class="card-body2">
+    <h5 class="text-secondary"> ${[1 + i]}번째 다이어리 from 유저네임 (바꿔야함) </h5>
     <p class="text-secondary">${name}</p>
     <a href="#" class="btn btn-primary btn-sm">C O M M E N T</a>
   </div>
@@ -145,17 +164,28 @@
                 }
             });
         }
+
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('로그아웃!')
+            window.location.href = '/login'
+        }
     </script>
 </head>
 <body>
 <div class="sidenav">
     <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
-    <a href="#home">H o m e</a>
-    <a href="#list">L i s t</a>
-    <a href="#mypage">M y p a g e</a>
+    <a  onclick="location.href='https://google.com'" href="#home">H o m e</a>
+    <a onclick="location.href='https://google.com'" href="#list">L i s t</a>
+    <a  onclick="location.href='https://google.com'" href="#mypage">M y p a g e</a>
+    <div class="logout_button">
+        <button class="btn btn-secondary btn-sm" onclick="logout()">&nbsp; L O G O U T &nbsp;</button>
+    </div>
 </div>
-<div class="mask"></div>
+
 <div class="order">
+
+    <p></p>
     <div class="order-info">
         <div class="input-group mb-3">
 
@@ -163,7 +193,9 @@
                 <textarea class="form-control" id="name" rows="5"></textarea>
             </div>
         </div>
-        <button onclick="save_order()" type="button" class="btn btn-secondary btn-sm"> P O S T</button>
+        <div class="post_button">
+            <button onclick="save_order()" type="button" class="btn btn-secondary btn-sm"> P O S T </button>
+            </div>
     </div>
     <table class="table">
         <thead>
@@ -171,9 +203,9 @@
             <th class="col2" scope="col">글 목록</th>
         </tr>
         </thead>
-        <tbody id="order-box">
-
+        <tbody class="orderboxes" id="order-box">
         </tbody>
+
     </table>
 </div>
 </body>
