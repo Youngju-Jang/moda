@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="style.css"/>
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+<body>
+<div class="sidenav">
+    {% block sidenav %}
+        <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
+        <a href="#home">H o m e</a>
+        <a href="#list">L i s t</a>
+        <a href="/mypage">M y p a g e</a>
+    {% endblock %}
+</div>
+<div id="content">{% block content %}{% endblock %}</div>
+<div id="footer">
+    {% block footer %}
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+    {% endblock %}
+</div>
+</body>
+</html>
