@@ -107,27 +107,24 @@
         var id_check = 0;
 
         function register() {
-            if (id_check == 0) {
-                alert('아이디를 확인해주세요.')
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/register",
-                    data: {
-                        id_give: $('#userid').val(),
-                        pw_give: $('#userpw').val(),
-                        nickname_give: $('#usernick').val()
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입이 완료되었습니다.')
-                            location.replace("/login")
-                        } else {
-                            alert(response['msg'])
-                        }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/register",
+                data: {
+                    id_give: $('#userid').val(),
+                    pw_give: $('#userpw').val(),
+                    nickname_give: $('#usernick').val()
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('회원가입이 완료되었습니다.')
+                        location.replace("/login")
+                    } else {
+                        alert(response['msg'])
                     }
-                })
-            }
+                }
+            })
         }
 
         {#function idCheck() {#}
@@ -176,8 +173,6 @@
 
     </script>
     <style>
-        @import url("../static/css/nav.css");
-
         .main {
             position: absolute;
             display: inline-block;

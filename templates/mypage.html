@@ -403,23 +403,23 @@
                                                 <img class="heart" onclick="commentToggle(this, ${num})" src=${bubbleSrc} style="width:15px;">
                                                 <span class="card-body_span">${commentInfo.length}</span>
                                             </span>
-                                            <div class="commentWrap" style="display: none"></div>
-                                        </div>`
+                                            <div class="commentWrap" style="display: none">
+                                        `
 
-                        $('#diary-list').append(temp_html)
 
                         if (commentInfo.length != 0) {
                             for (let i = 0; i < commentInfo.length; i++) {
                                 comment_user = commentInfo[i]['user']
                                 comment = commentInfo[i]['comment']
-                                temp_comment_html = `<div class="comment_box">
+                                temp_html += `<div class="comment_box">
                                                         <div>${comment_user}</div>
                                                         <div>${comment}</div>
-                                                    </div>
-                                        `
-                                $('.commentWrap').append(temp_comment_html)
+                                                    </div>`
                             }
                         }
+                        temp_html += `</div></div>`
+                        console.log(temp_html)
+                        $('#diary-list').append(temp_html)
                     }
                 }
             });

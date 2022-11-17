@@ -23,9 +23,16 @@ def comment_post():
     comment_receive = request.form['comment_give']
     user_receive = request.form['user_give']
     num_receive = request.form['num_give']
+    temp = db.comment.find_one({'write_num':int(num_receive)}, sort=[('comment_num', -1)])
+    max_num = 0
 
-    comment_test_list = list(db.comment.find({'write_num':int(num_receive)}, {'_id': False}))
-    count = len(comment_test_list) + 1
+    if temp is None:
+        pass
+    else:
+        max_num = temp['comment_num']
+
+    count = max_num + 1
+    print(">>>>>>>>>>", temp)
 
     doc = {
         'write_num' : int(num_receive),

@@ -393,6 +393,7 @@
     }
 
     function cancel_comment(num) {
+        console.log(num)
         let cancel = confirm("댓글을 삭제 하시겠습니까?")
         if (cancel) {
             $.ajax({
@@ -451,11 +452,11 @@
 {#</div>#}
 
 <script>
-    const scrollTo = document.querySelector('#to-top');
-
-    scrollTo.addEventListener('click', () => {
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-    });
+    {#const scrollTo = document.querySelector('#to-top');#}
+    {##}
+    {#scrollTo.addEventListener('click', () => {#}
+    {#    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});#}
+  //  });
 
 </script>
 
