@@ -1,7 +1,8 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
-
+from routes import *
 app = Flask(__name__)
 
+app.register_blueprint(routes)
 from pymongo import MongoClient
 
 import certifi
@@ -17,20 +18,23 @@ import jwt
 import datetime
 import hashlib
 
-@app.route('/')
+@app.route('/home')
 def home():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"id": payload['id']})
-        return render_template('index.html', nickname=user_info["nick"])
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+    return render_template('home.html')
+# @app.route('/')
+# def home1():
+#     token_receive = request.cookies.get('mytoken')
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         user_info = db.user.find_one({"id": payload['id']})
+#         return render_template('index.html', nickname=user_info["nick"])
+#     except jwt.ExpiredSignatureError:
+#         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+#     except jwt.exceptions.DecodeError:
+#         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-@app.route('/login')
+@app.route('/')
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
@@ -52,6 +56,7 @@ def api_register():
     else:
         db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
         return jsonify({'result': 'success'})
+
 
 @app.route('/api/login', methods=['POST'])
 def api_login():

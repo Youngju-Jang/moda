@@ -13,6 +13,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <script>
+
+        var id_check = 0;
+
+        function register() {
+            let signup_userpw = $('#signup_userpw').val()
+            let signup_userpw_check = $('#signup_userpw_check').val()
+            if (id_check == 0) {
+                alert('ID CHECK를 해주세요.')
+            } else if (signup_userpw != signup_userpw_check) {
+                alert('pw가 다릅니다.')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/register",
+                    data: {
+                        id_give: $('#signup_userid').val(),
+                        name_give: $('#signup_username').val(),
+                        pw_give: $('#signup_userpw').val()
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('회원가입이 완료되었습니다.')
+                            location.replace("/")
+                        } else {
+                            alert(response['msg'])
+                        }
+                    }
+                })
+            }
+        }
+
+
+        function idCheck() {
+            let signup_userid_check = $('#signup_userid').val()
+            console.log(signup_userid_check)
+
+            $.ajax({
+                type: "GET",
+                url: "/api/register/id_check",
+                data: {
+                    signup_userid_give: signup_userid_check
+                },
+                success: function (response) {
+                    if (response['status'] == 'success') {
+                        alert(response['msg'])
+                        id_check = 1;
+                    } else {
+                        alert(response['msg'])
+                        id_check = 0;
+                    }
+                }
+            })
+        }
+
         function changePhone1() {
             const phone1 = document.getElementById("phone1").value // 010
             if (phone1.length === 3) {
@@ -31,7 +85,7 @@
             const phone3 = document.getElementById("phone3").value // 010
             if (phone3.length === 4) {
                 document.getElementById("sendMessage").focus();
-                document.getElementById("sendMessage").setAttribute("style", "background-color:yellow;")
+                document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
                 document.getElementById("sendMessage").disabled = false;
             }
         }
@@ -42,8 +96,8 @@
             document.getElementById("completion").disabled = true;
             document.getElementById("certificationNumber").innerHTML = "000000";
             document.getElementById("timeLimit").innerHTML = "03:00";
-            document.getElementById("sendMessage").setAttribute("style", "background-color:none;")
-            document.getElementById("completion").setAttribute("style", "background-color:none;")
+            document.getElementById("sendMessage").setAttribute("style", "background-color:wheat;")
+            document.getElementById("completion").setAttribute("style", "background-color:wheat;")
         }
 
         let processID = -1;
@@ -51,7 +105,7 @@
         const getToken = () => {
 
             // 인증확인 버튼 활성화
-            document.getElementById("completion").setAttribute("style", "background-color:yellow;")
+            document.getElementById("completion").setAttribute("style", "background-color:wheat;")
             document.getElementById("completion").disabled = false;
 
             if (processID != -1) clearInterval(processID);
@@ -77,7 +131,7 @@
             initButton();
             document.getElementById("completion").innerHTML = "인증완료"
             document.getElementById("signUpButton").disabled = false;
-            document.getElementById("signUpButton").setAttribute("style", "background-color:yellow;")
+            document.getElementById("signUpButton").setAttribute("style", "background-color:wheat;")
         }
 
         function register() {
@@ -123,54 +177,283 @@
 
     </script>
     <style>
-        .input {
-            width: 30%;
+        .main {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border-radius: 25px;
+            border: 5px solid #6a3201;
+            margin-top: 5%;
+            width: 20%;
             height: 50%;
+            background-color: snow;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            {#box-shadow: 0px 0px 10px #5f5eff;#}
+        }
+
+        .img {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+            margin-left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .title {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .id {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 60%;
+            height: 5%;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .pw {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 60%;
+            height: 5%;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .pwc {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 60%;
+            height: 5%;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .nick {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 60%;
+            height: 5%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+
+        .gender {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 5%;
+            top: 57%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .phone {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 5%;
+            top: 62%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .auth {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 5%;
+            top: 67%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .timer {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            height: 5%;
+            top: 78%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .signin {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: wheat;
+            width: 50%;
+            height: 5%;
+            top: 95%;
+            left: 50%;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+        }
+        .pwchk {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            font-size: 0.7em;
+        }
+        .mid {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 17%;
+            left: 13%;
+            font-weight: bold;
+        }
+        .mpw {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 27%;
+            left: 11%;
+            font-weight: bold;
+        }
+        .mpwck {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 37%;
+            left: 11%;
+            font-weight: bold;
+        }
+        .mnick {
+            position: absolute;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            top: 47%;
+            left: 8%;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+<img src="https://i.imgur.com/ngFHyCw.png" class="img">
+<div class="main">
+    <div class="section has-text-centered">
+        <h1 class="title" style="color: black">sign in</h1>
+        <div>
+            <span class="mid" >ID</span>
+            <input type="text" class="id" id="userid" name="id" aria-describedby="emailHelp" style="background-color: wheat"
+                   placeholder="사용하실 ID를 입력해주세요" maxlength="12">
+        </div>
+        <div class="section has-text-centered">
+            <span class="mpw" >PW</span>
+            <input type="password" class="pw" id="userpw" name="pw1" style="background-color: wheat"
+                   placeholder="사용하실 PW를 입력해주세요" required/>
+        </div>
+        <div class="section has-text-centered">
+            <span class="mpwck" >PW</span>
+            <input type="password" class="pwc" id="chkpw" name="pw2" style="background-color: wheat"
+                   placeholder="사용하실 PW를 확인해주세요" required/>
+        </div>
+            <div class="pwchk">
+                <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다</div>
+                <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다</div>
+            </div>
+        <div class="section has-text-centered">
+            <span class="mnick" >NICK</span>
+            <input type="text" class="nick" id="usernick" style="background-color: wheat" placeholder="사용하실 닉네임을 입력해주세요">
+        </div>
+        <div class="gender">
+            <input id="gender_man" type="radio" name="gender">남성
+            <input id="gender_woman" type="radio" name="gender">여성
+            <div id="genderError" class="error"></div>
+        </div>
+        <div class="phone">
+            <input id="phone1" type="text" size="1" maxlength="3" oninput="changePhone1()" style="background-color: wheat"> -
+            <input id="phone2" type="text" size="3" maxlength="4" oninput="changePhone2()" style="background-color: wheat"> -
+            <input id="phone3" type="text" size="3" maxlength="4" oninput="changePhone3()" style="background-color: wheat">
+        </div>
+        <div class="auth">
+            <div id="certificationNumber">000000</div>
+            <button disabled id="sendMessage" onclick="getToken()">인증번호 전송</button>
+        </div>
+        <div class="timer">
+            <div id="timeLimit">03:00</div>
+            <button disabled id="completion" onclick="checkCompletion()">인증확인</button>
+        </div>
+        <div>
+            <button type="submit" class="signin" onclick="register()">회원가입</button>
+        </div>
+    </div>
 
-<div class="section has-text-centered">
-    <h1 class="title" style="color: black">sign in</h1>
-    <div>
-        <input type="text" class="input" id="userid" name="id" aria-describedby="emailHelp"
-           placeholder="사용하실 ID를 입력해주세요" maxlength="12">
-    </div>
-    <div class="section has-text-centered">
-        <input type="password" class="input" id="userpw" name="pw1"
-               placeholder="사용하실 PW를 입력해주세요" required/>
-    </div>
-    <div class="section has-text-centered">
-        <input type="password" class="input" id="chkpw" name="pw2"
-               placeholder="사용하실 PW를 확인해주세요" required/>
-        <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다</div>
-        <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다</div>
-    </div>
-    <div class="section has-text-centered">
-        <input type="text" class="input" id="usernick" placeholder="사용하실 닉네임을 입력해주세요">
-    </div>
-    <div class="gender">
-        <input id="gender_man" type="radio" name="gender">남성
-        <input id="gender_woman" type="radio" name="gender">여성
-        <div id="genderError" class="error"></div>
-    </div>
-    <div class="phone">
-        <input id="phone1" type="text" size="1" maxlength="3" oninput="changePhone1()"> -
-        <input id="phone2" type="text" size="3" maxlength="4" oninput="changePhone2()"> -
-        <input id="phone3" type="text" size="3" maxlength="4" oninput="changePhone3()">
-    </div>
-    <div class="auth">
-        <div id="certificationNumber">000000</div>
-        <button disabled id="sendMessage" onclick="getToken()">인증번호 전송</button>
-    </div>
-    <div class="timer">
-        <div id="timeLimit">03:00</div>
-        <button disabled id="completion" onclick="checkCompletion()">인증확인</button>
-    </div>
-    <div>
-        <button type="submit" class="button is-primary" onclick="register()">회원가입</button>
-    </div>
 </div>
 
 </body>
