@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
     <!-- material-icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -19,16 +20,20 @@
 </head>
   <style>
       /* common */
-      body {
-          height: 3500px;
+      * {
+            font-family: 'Dongle', sans-serif;
 
-          font-family: 'Nanum Gothic', sans-serif;
+        }
+
+      body {
+          {#height: 3500px;#}
+          color: #fff;
           font-size: 16px;
           font-weight: 400;
           line-height: 1.4;
-          color: #fff;
 
-          background-color: black;
+
+          background-color: white;
       }
 
       a {
@@ -47,7 +52,7 @@
           border: 2px solid #333;
           border-radius: 50px;
           color: #333;
-          font-size: 16px;
+          font-size: 24px;
           font-weight: 700;
           text-align: center;
           cursor: pointer;
@@ -58,104 +63,114 @@
 
       .btn.btn--brown {
           color: #FFF;
-          background-color: sandybrown;
+          background-color: #592B18;
       }
 
       .btn.btn--brown:hover {
-          color: sandybrown;
-          background-color: black;
-          border-color: sandybrown;
+          color: #592B18;
+          background-color: darkgray;
+          border-color: #592B18;
       }
 
+      .sidenav {
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: white;
+            opacity: 1;
+            overflow-x: hidden;
+            padding-top: 20px;
+            max-width: 100%;
+            height: 100%;
+        }
 
-      /* HEADER */
-      header {
-          width: 500px;
-          height: 100%;
+        .modaimage {
+            margin: 50px 8px 10px 74px;
+            background-image: url("../static/img/logo.png");
+            background-position: center;
+            background-size: cover;
+        }
 
-          position: fixed;
-          top: 0;
-          left: 0;
-          z-index: 9;
+        .sidenav a {
+            padding: 40px 8px 10px 5px;
+            text-decoration: none;
+            font-size: 45px;
+            font-weight: 500;
+            color: #1da1f2;
+            display: block;
+            text-align: center;
+        }
 
-          border-right: 1px solid #333;
-      }
+        .sidenav a:hover {
+            color: maroon;
+        }
 
-      header .header_wrap {
-          width: 100%;
-          height: 100%;
-          margin: auto;
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
 
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
 
-      }
-
-      .logo {
-          display: block;
-          width: 100%;
-
-          margin-top: 180px;
-      }
-
-      header ul.main-menu {
-          width: 300px;
-          height: 100%;
-      }
-
-      header ul.main-menu li.item {
-          width: 100%;
-          margin-bottom: 50px;
-
-          font-size: 36px;
-          font-weight: bold;
-      }
-
-      header ul.main-menu li.item .material-icons {
-          width: 40px;
-          height: 50px;
-          font-size: 35px;
-      }
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
 
 
       /* MAINBODY */
       .wrap {
-          max-width: 750px;
+          max-width: 825px;
           width: 95%;
           height: 100%;
 
-          margin: 0px auto 0 auto;
-          margin-left: 500px;
-          border-right: 1px solid #333;
+          margin: 20px auto 0 auto;
+          margin-left: 300px;
+          border-right: 1px solid #fff;
+          border-left: 1px solid #fff;
+          border-radius: 20px 20px 0 0;
 
           display: flex;
           flex-direction: column;
           align-items: center;
+          background-color: #1da1f2;
       }
 
       .wrap > .inners {
           width: 100%;
           height: 100%;
           margin: 20px auto 0 auto;
+
+      }
+
+      .wrap .material-icons {
+          margin: 0 0 20px 20px;
+          color: #592B18;
+          cursor: pointer;
+      }
+
+      .wrap .material-icons:hover {
+          color: darkgray;
       }
 
       .wrap .post_box {
-          width: 100%;
-          border-bottom: 1px solid #333;
+          width: 725px;
+          border-bottom: 1px solid #fff;
+          color: #fff;
+          font-size: 30px;
+          font-weight: bold;
+
+          padding: 0 0px 50px 100px;
       }
 
-      .wrap .post_box .material-icons {
-          margin: 0 0 20px 20px;
-          color: #333;
-          cursor: pointer;
-      }
-      .wrap .post_box .material-icons:hover {
-          color: darkgray;
-      }
-
-      .wrap .post_box .nickname {
-          color: darkgray;
+      .wrap .post_box .nickname div {
+          color: lightgrey;
           font-size: 18px;
           font-weight: bold;
 
@@ -179,7 +194,8 @@
       .wrap > .inners .input_box {
           width: 100%;
           height: 200px;
-
+          font-size: 18px;
+          font-weight: bold;
 
           display: flex;
           flex-direction: column;
@@ -187,16 +203,19 @@
           align-content: space-around;
           justify-content: center;
           align-items: flex-start;
-          border-bottom: 1px solid #333;
+          border-bottom: 1px solid #fff;
+
 
       }
 
       .wrap > .inners .input_box .input_name {
+
           margin-bottom: 10px;
+
       }
 
-      .wrap > .inners .input_box .input_name {
-
+      .wrap > .inners .input_box input {
+        margin-left: 60px;
       }
 
       .wrap > .inners .input_box div p {
@@ -207,41 +226,46 @@
       .wrap > .inners .input_box input {
           width: 450px;
           height: 50px;
-          font-size: 18px;
           color: #fff;
+          font-size: 18px;
+          font-family: 'Nanum Gothic', sans-serif;
           margin-right: 20px;
           outline: none;
 
           border-color: transparent;
-          border-bottom: 1px solid #333;
+          border-bottom: 1px solid #fff;
 
           background-color: transparent;
           transition: .4s;
       }
 
       .wrap > .inners .input_box input:focus {
-          border-bottom: 3px solid #333;
+          border-bottom: 3px solid #fff;
+      }
+      .wrap > .inners .input_box input::placeholder {
+          color: gray;
+          font-size: 18px;
+          font-family: 'Nanum Gothic', sans-serif;
       }
 
       .wrap .comment_wrap .comment_box {
-          border-bottom: 1px solid #333;
+          border-bottom: 1px solid #fff;
           position: relative;
       }
 
-      .wrap .comment_wrap .comment_box .nickname {
-          color: darkgray;
+      .wrap .comment_wrap .comment_box .nickname p {
+          color: lightgrey;
           font-weight: bold;
-          font-size: 18px;
-          margin: 30px 0 20px 20px;
+          font-size: 20px;
+          margin: 30px 0 20px 120px;
       }
 
       .wrap .comment_wrap .comment_box .nickname .material-icons {
-          color: #333;
+          color: #592B18;
           cursor: pointer;
           position: absolute;
           top: 0;
           right: 20px;
-
       }
 
       .wrap .comment_wrap .comment_box .nickname .material-icons:hover {
@@ -249,25 +273,29 @@
       }
 
       .wrap .comment_wrap .comment_box .comment {
-          font-size: 26px;
+          font-size: 30px;
           padding:  20px;
-          margin-bottom: 30px;
+          margin-left: 100px;
+          font-weight: bold;
       }
 
       #to-top {
           width: 42px;
           height: 42px;
-          background-color: sandybrown;
-          color: #fff;
+          color: #FFF;
+          background-color: #592B18;
           border-radius: 10px;
           display: flex;
           justify-content: center;
           align-items: center;
           position: fixed;
           bottom: 30px;
-          right: 30px;
+          right: 10px;
           cursor: pointer;
           z-index: 9;
+      }
+      #to-top:hover {
+          background-color: darkgray;
       }
 
   </style>
@@ -287,23 +315,58 @@
 
                     for (let i = 0; i < rows.length; ++i) {
                         let user = rows[i]['user']
-                        let num = rows[i]['num']
+                        let num = rows[i]['comment_num']
                         let comment = rows[i]['comment']
 
                         let temp_html = `<ul class="comment_box">
                                             <li class="nickname">
                                                 <a onclick="cancel_comment(${num})" ><div class="material-icons">cancel</div></a>
-                                                <p>${user}</p>
+                                                <p>- ${user} -</p>
                                             </li>
                                             <li class="comment">
                                                 <p>${comment}</p>
                                             </li>
                                         </ul>`
                         $('#cm_wrap').append(temp_html)
+
                     }
                 }
             });
         }
+        $(document).ready(function () {
+            show_diary();
+        });
+        function show_diary() {
+            $.ajax({
+                type: "GET",
+                url: "/comment/comment2",
+                data: {},
+                success: function (response) {
+                    let rows = response['text'];
+
+                        for (let i = 0; i < rows.length; ++i) {
+                                // let num = rows[i]['write_num']
+
+                                let user = rows[i]['user']
+                                let comment = rows[i]['comment']
+
+                                let temp_html = `<div class="nickname">
+                                            <div>- ${user} -</div>
+                                        </div>
+                                        <div class="text_box">
+                                            <p>${comment}</p>
+                                        </div>`
+                                $('#diary').append(temp_html)
+
+
+                        }
+
+                }
+            });
+        }
+
+
+
 
         function save_comment() {
             let user = $('#user').val()
@@ -335,43 +398,25 @@
 
             }
         }
+
     </script>
 
 
 <body>
-    <header>
-        <div class="header_wrap">
-            <ul class="main-menu">
-                <li class="item">
-                    <a href="javascript:void(0)" class="logo">
-                        <img src="../static/img/logo.png" alt="moda"/>
-                    </a>
-                </li>
-                <li class="item">
-                    <div class="material-icons">home</div>
-                    <a href="javascript:void(0)">Home</a>
-                </li>
-                <li class="item">
-                    <div class="material-icons">list alt</div>
-                    <a href="javascript:void(0)">Mypage</a>
-                </li>
-            </ul>
-        </div>
-    </header>
-
+    <div class="sidenav">
+        <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
+        <a href="#home">H o m e</a>
+        <a href="#list">L i s t</a>
+        <a href="#mypage">M y p a g e</a>
+    </div>
     <div class="wrap">
         <div class="inners">
-            <div class="post_box">
-                <div class="material-icons">arrow_back</div>
-                <div class="nickname">
-                    <div>- MinJae -</div>
-                </div>
-                <div class="text_box">
-                    <p>안녕하세요~!반갑습니다 ~! 아아앙아우우우웅이이이이아아아 <br/>줄바꿈</p>
-                </div>
-                <div class="img_box">
-                    <img src="../static/img/test-img.png" alt="" />
-                </div>
+            <button type="button" onclick="location.href='/comment?num_give=3'">forMJ3</button>
+            <button type="button" onclick="location.href='/comment?num_give=7'">forMJ7</button>
+
+            <a href="/home" class="material-icons">arrow_back</a>
+            <div id="diary" class="post_box">
+
             </div>
             <div class="input_box">
                 <div class="input_name">
@@ -390,8 +435,9 @@
         </div>
     </div>
 
+
     <div id="to-top">
-      <a href="javascript:void(0)" class="material-icons">arrow_upward</a>
+      <a class="material-icons">arrow_upward</a>
     </div>
 
     <script>

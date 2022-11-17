@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request, session, redirect, u
 from routes import *
 
 app = Flask(__name__)
+app.register_blueprint(routes)
 
 app.register_blueprint(routes)
 from pymongo import MongoClient
@@ -14,6 +15,8 @@ client = MongoClient("mongodb+srv://dbtkdfbs:dbthvkd01!@cluster0.ylde6ne.mongodb
 db = client.dbsparta_plus_week4
 
 SECRET_KEY = 'SPARTA'
+
+
 
 import jwt
 import datetime
