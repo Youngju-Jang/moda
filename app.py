@@ -10,13 +10,10 @@ from pymongo import MongoClient
 import certifi
 
 ca=certifi.where()
-
-client = MongoClient("mongodb+srv://dbtkdfbs:dbthvkd01!@cluster0.ylde6ne.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.dbsparta_plus_week4
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.moda
 
 SECRET_KEY = 'SPARTA'
-
-
 
 import jwt
 import datetime

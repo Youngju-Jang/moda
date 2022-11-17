@@ -5,8 +5,8 @@ import certifi
 ca = certifi.where()
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.bckltib.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
-db = client.dbsparta
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.moda
 
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)

@@ -13,10 +13,9 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../static/css/base.css">
-    {%  extends 'base.html' %}
     <title>Document</title>
     <style>
+        @import url("../static/css/nav.css");
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
         * {
@@ -391,9 +390,9 @@
 <nav></nav>
 <main>
     <nav class="sidenav">
-        {% block sidenav %}
-
-        {% endblock %}
+        <img class="modaimage" src="https://i.imgur.com/ngFHyCw.png" width="150" height="150">
+        <a href="/home">H o m e</a>
+        <a href="/mypage">M y p a g e</a>
     </nav>
     <div class="main">
         <!--사진수정-->
@@ -432,14 +431,6 @@
             </div>
         </div>
         <div class="mybox" id="diary-list"></div>
-    </div>
-    <div class="goods-wrap">
-        <!--   좋아요 리스트   -->
-        <div class="goodBox">
-            <img src='https://i.imgur.com/ngFHyCw.png'>
-            <span>개똥이</span>
-
-        </div>
     </div>
 </main>
 </body>

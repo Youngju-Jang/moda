@@ -5,9 +5,11 @@ from . import routes
 from pymongo import MongoClient
 import pprint
 from bson.son import SON
+import certifi
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+ca=certifi.where()
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.moda
 
 
 @routes.route("/mypage", methods=["GET"])

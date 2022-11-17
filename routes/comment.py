@@ -7,8 +7,8 @@ import certifi
 
 ca = certifi.where()
 
-client = MongoClient('mongodb+srv://Minj:alswoqjffp45@cluster0.7597pmh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
-db = client.dbsparta
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qaukrbc.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.moda
 
 @routes.route('/comment')
 def comment():
