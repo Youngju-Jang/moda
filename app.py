@@ -4,7 +4,6 @@ from routes import *
 app = Flask(__name__)
 app.register_blueprint(routes)
 
-app.register_blueprint(routes)
 from pymongo import MongoClient
 
 import certifi

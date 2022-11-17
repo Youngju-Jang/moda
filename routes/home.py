@@ -18,18 +18,33 @@ def home():
 
 @routes.route("/home", methods=["POST"])
 def web_mars_post():
-    name_receive = request.form['name_give']
+    text_receive = request.form['text_give']
+    user_receive = request.form['user_give']
+
+    max_num = 0
+    temp = db.write.find_one({}, sort=[('write_num', -1)])
+    if temp is None:
+        pass
+    else:
+        max_num = db.write.find_one({}, sort=[('write_num', -1)])['write_num']
+
+    count = max_num + 1
+
 
     doc={
-        'name': name_receive,
+        'text': text_receive,
+        'write_num': count,
+        'user': user_receive,
+        'good': []
+
     }
-    db.home.insert_one(doc)
+    db.write.insert_one(doc)
 
     return jsonify({'msg': '작성 완료!'})
 
-@routes.route("/home", methods=["GET"])
+@routes.route("/home2", methods=["GET"])
 def web_mars_get():
-    order_list = list(db.home.find({}, {'_id': False}))
+    order_list = list(db.write.find({}, {'_id': False}))
     return jsonify({'orders': order_list})
 
 if __name__ == '__main__':
