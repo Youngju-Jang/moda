@@ -1,7 +1,8 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
+from routes import *
 
 app = Flask(__name__)
-
+app.register_blueprint(routes)
 from pymongo import MongoClient
 
 import certifi
@@ -68,7 +69,7 @@ def api_login():
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        return jsonify({'result': 'success', 'token': token})
+        return jsonify({'result': 'success', 'token': token, 'user': id_receive})
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
